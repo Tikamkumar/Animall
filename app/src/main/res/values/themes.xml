@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Animall" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/primary</item>
+    </style>
+
+    <style name="Theme.Animall" parent="Base.Theme.Animall" />
+
+    <style name="CircularShape" parent="Base.Theme.Animall">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- or use a specific dimension -->
+    </style>
+
+    <!--<style name="FullScreenBottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/white</item> &lt;!&ndash; Set a background if needed &ndash;&gt;
+    </style>-->
+
+    <style name="CustomTitleStyle">
+      <item name="fontFamily">@font/biorhyme_medium</item>
+      <item name="android:textSize">@dimen/_12ssp</item>
+      <item name="android:textColor">@color/black</item>
+    </style>
+    
+</resources>

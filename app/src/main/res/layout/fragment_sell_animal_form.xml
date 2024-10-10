@@ -4,27 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/_10sdp"
+    android:padding="@dimen/_20sdp"
     android:scrollbars="none"
     tools:context=".fragments.SellAnimalFormFragment">
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/which_animal"
-                android:textSize="@dimen/_15ssp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textStyle="bold" />
+                style="@style/CustomTitleStyle" />
 
             <LinearLayout
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
@@ -41,20 +38,15 @@
 
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/_12sdp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/breed"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/CustomTitleStyle" />
 
             <LinearLayout
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
@@ -71,20 +63,15 @@
 
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/_12sdp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lactation"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/CustomTitleStyle"/>
 
             <LinearLayout
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
@@ -101,20 +88,16 @@
 
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/_12sdp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/current_milk"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/CustomTitleStyle"/>
 
             <LinearLayout
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
@@ -136,20 +119,15 @@
 
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/_12sdp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/milk_capacity"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/CustomTitleStyle" />
 
             <LinearLayout
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
@@ -164,20 +142,15 @@
 
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/_12sdp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/price"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/CustomTitleStyle" />
 
             <LinearLayout
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
@@ -192,23 +165,20 @@
 
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/_12sdp" />
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/is_negotiable"
-                android:textSize="@dimen/_13ssp" />
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/CustomTitleStyle"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/click_atleast_one"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/CustomTitleStyle"/>
 
             <LinearLayout
                 android:background="@drawable/custom_media_bg"
@@ -323,15 +293,14 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="visible"
-                android:id="@+id/fill_more_info_layout"
-                android:paddingHorizontal="@dimen/_10sdp">
+                android:id="@+id/fill_more_info_layout">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/has_baby"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CustomTitleStyle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -355,9 +324,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/is_pregnant"
-                    android:textSize="@dimen/_15ssp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CustomTitleStyle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -381,9 +349,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/is_calf_with_animal"
-                    android:textSize="@dimen/_15ssp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CustomTitleStyle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -407,9 +374,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/more_information"
-                    android:textSize="@dimen/_15ssp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CustomTitleStyle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -435,7 +401,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/submit_animal"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_13ssp"
                     android:layout_marginVertical="@dimen/_25sdp"
                     android:background="@drawable/custom_btn_bg"
                     />

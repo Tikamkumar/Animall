@@ -8,30 +8,41 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.online.animall.R
+import com.online.animall.data.model.CreateUserRequest
+import com.online.animall.data.model.CreateUserResponse
+import com.online.animall.data.remote.RetrofitClient
 import com.online.animall.databinding.ActivityEnterMobileBinding
-import com.online.animall.model.UserRequest
-import com.online.animall.network.RetrofitInstance
-import kotlinx.coroutines.GlobalScope
+import com.online.animall.presentation.dialog.LoadingDialog
+import com.online.animall.presentation.viewmodel.UserViewModel
+import com.online.animall.utils.SnackbarUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class EnterMobileActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityEnterMobileBinding
+    private val userViewModel: UserViewModel by viewModels()
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityEnterMobileBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        binding.proceedBtn.setOnClickListener {
-            proceedfunc()
-        }
 
         setContentView(binding.root)
+        loadingDialog = LoadingDialog(this)
+
+        binding.proceedBtn.setOnClickListener {
+            signUp()
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -41,36 +52,61 @@ class EnterMobileActivity : AppCompatActivity() {
         binding.root.setOnClickListener {
             startActivity(Intent(this, VerifyMobile::class.java))
         }
-
         binding.mobileNumber.addTextChangedListener(textWatcher)
     }
 
-    private fun proceedfunc() {
+    private fun signUp() {
+        loadingDialog.show()
         val mobileNumber = binding.mobileNumber.text.toString()
-        startActivity(Intent(this, VerifyMobile::class.java))
         if(mobileNumber.isEmpty() || mobileNumber.length != 10) {
             binding.validationMsg.visibility = View.VISIBLE
+            loadingDialog.hide()
         } else {
             binding.validationMsg.visibility = View.GONE
-            startActivity(Intent(this, VerifyMobile::class.java))
-            // launching a new coroutine
-            /*GlobalScope.launch {
-                try {
-                    val user = UserRequest(mobileNumber)
-                    val response = RetrofitInstance.api.createUser(user)
-
-                    if (response.isSuccessful && response.code() == 201) {
-                        val intent = Intent(applicationContext, VerifyMobile::class.java)
-                        intent.putExtra("mobile", "$mobileNumber")
+            /*CoroutineScope(Dispatchers.IO).launch {
+                val response = RetrofitClient.api.signUp(CreateUserRequest(mobileNumber))
+                if (response.isSuccessful) {
+                    // Handle the successful response
+                    val userResponse = response.body()
+                    if (userResponse != null) {
+                        // Process userResponse
+                        Log.d("API Success", "Response: $userResponse")
+                        val intent = Intent(this@EnterMobileActivity, VerifyMobile::class.java)
+                        intent.putExtra("mobile", mobileNumber)
                         startActivity(intent)
-                        Log.d("Response: ${response.code()} ", response.body()?.toString() ?: "No response body")
-                    } else {
-                        Log.e("Error", "Response Code: ${response.code()}, Message: ${response.errorBody()?.string()}")
                     }
-                } catch (exp: Exception) {
-                    Log.e("Error", exp.toString())
+                } else {
+                    // Handle the error response
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("API Error", "Code: ${response.code()}, Body: $errorBody")
                 }
             }*/
+            try {
+                /*userViewModel.createUserResponse.observe(this) { response ->
+                    loadingDialog.hide()
+                    if(response != null) {
+                        val intent = Intent(this, VerifyMobile::class.java)
+                        intent.putExtra("mobile", mobileNumber)
+                        startActivity(intent)
+                    } else {
+                        SnackbarUtil.error(binding.main)
+                    }
+                }*/
+                userViewModel.createUser(mobileNumber, object : UserViewModel.CreateUserCallback {
+                    override fun onSuccess(response: CreateUserResponse) {
+                        loadingDialog.hide()
+                        val intent = Intent(this@EnterMobileActivity, VerifyMobile::class.java)
+                        intent.putExtra("mobile", mobileNumber)
+                        startActivity(intent)
+                    }
+                    override fun onError(error: String) {
+                        loadingDialog.hide()
+                        SnackbarUtil.error(binding.main)
+                    }
+                })
+            } catch(e: Exception) {
+                SnackbarUtil.error(binding.main)
+            }
         }
     }
 

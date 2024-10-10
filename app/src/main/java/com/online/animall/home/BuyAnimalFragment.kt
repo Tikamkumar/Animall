@@ -1,5 +1,6 @@
 package com.online.animall.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.online.animall.R
+import com.online.animall.activity.WalletActivity
 import com.online.animall.adapter.SellAnimalAdapter
 import com.online.animall.databinding.FragmentBuyAnimalBinding
 import com.online.animall.fragments.BuyAllAnimalFragment
@@ -25,6 +27,9 @@ class BuyAnimalFragment : Fragment() {
     ): View? {
         binding = FragmentBuyAnimalBinding.bind(inflater.inflate(R.layout.fragment_buy_animal, container, false))
         setUpTabAndViewPager()
+        binding.wallet.setOnClickListener {
+            startActivity(Intent(requireContext(), WalletActivity::class.java))
+        }
         return binding.root
     }
 

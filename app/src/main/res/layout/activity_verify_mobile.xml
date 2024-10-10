@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".signup.EnterMobileActivity">
+    tools:context=".signup.VerifyMobile">
 
     <LinearLayout
         android:layout_marginTop="@dimen/_20sdp"
@@ -73,6 +73,40 @@
         app:itemRadius="10dp"
         style="@style/PinWidget.PinView"
         />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"/>
+
+    <TextView
+        android:id="@+id/otp_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Otp sent to 6397801671"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/change_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change_number"/>
+
+        <Space
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/resend_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_otp"/>
+
+    </LinearLayout>
 <!--
 
     <TextView

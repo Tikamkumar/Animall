@@ -10,6 +10,7 @@ class UserPreferences(context: Context) {
     companion object {
         private const val KEY_TOKEN = "token"
         private const val USER_ID = "userId"
+        private const val FIRST_TIME_LOCATION = "location"
     }
 
     fun saveData(token: String, userId: String) {
@@ -19,7 +20,15 @@ class UserPreferences(context: Context) {
         editor.apply()
     }
 
-    fun getToken(): String? = sharedPreferences.getString(KEY_TOKEN, null)
+    fun setFirstTimeLocation() {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(FIRST_TIME_LOCATION, false)
+        editor.apply()
+    }
+
+    fun isfirstTimeLocation(): Boolean = sharedPreferences.getBoolean(FIRST_TIME_LOCATION, true)
+
+    fun getToken(): String?  = sharedPreferences.getString(KEY_TOKEN, null)
 
     fun getUserId(): String? = sharedPreferences.getString(USER_ID, null)
 

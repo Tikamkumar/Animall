@@ -1,414 +1,477 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/_20sdp"
     android:scrollbars="none"
     tools:context=".fragments.SellAnimalFormFragment">
 
-        <LinearLayout
+    <LinearLayout
+        android:paddingHorizontal="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/CustomTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/which_animal" />
+
+        <Spinner
+            android:id="@+id/select_animal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/custom_field_bg"/>
+
+        <!--<EditText
+            android:id="@+id/select_animal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/custom_field_bg"
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:editable="false"
+            android:hint="@string/select_animal"
+            android:inputType="none"
+            android:padding="@dimen/_8sdp" />-->
+
+        <TextView
+            style="@style/CustomTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/breed" />
+
+        <Spinner
+            android:id="@+id/select_breed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/custom_field_bg"/>
+
+        <!--<EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/custom_field_bg"
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:editable="false"
+            android:hint="@string/select_breed"
+            android:inputType="none"
+            android:padding="@dimen/_8sdp" />-->
+
+        <LinearLayout
+            android:id="@+id/field_female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/which_animal"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
+                android:text="@string/lactation" />
 
-            <LinearLayout
+            <Spinner
+                android:id="@+id/select_lactation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/custom_field_bg"/>
+
+            <!--<EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:drawableEnd="@drawable/ic_dropdown"
-                    android:editable="false"
-                    android:hint="@string/select_animal"
-                    android:inputType="none" />
-
-            </LinearLayout>
+                android:drawableEnd="@drawable/ic_dropdown"
+                android:editable="false"
+                android:hint="@string/select_lactation"
+                android:inputType="none"
+                android:padding="@dimen/_8sdp" />-->
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/breed"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
+                android:text="@string/current_milk" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/current_milk"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:drawableEnd="@drawable/ic_dropdown"
-                    android:editable="false"
-                    android:hint="@string/select_breed"
-                    android:inputType="none" />
-
-            </LinearLayout>
+                android:hint="@string/milk_hint"
+                android:inputType="number"
+                android:padding="@dimen/_8sdp" />
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lactation"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle"/>
+                android:text="@string/milk_capacity" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/milk_capacity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:drawableEnd="@drawable/ic_dropdown"
-                    android:editable="false"
-                    android:hint="@string/select_lactation"
-                    android:inputType="none" />
-
-            </LinearLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/current_milk"
-                android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:hint="@string/milk_hint"
-                    android:inputType="number" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:hint="30000"
-                    android:inputType="number" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/milk_capacity"
-                android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:hint="@string/milk_hint"
-                    android:inputType="number" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/price"
-                android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:hint="@string/price_hint"
-                    android:inputType="number" />
-
-            </LinearLayout>
-
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/is_negotiable"
-                android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/click_atleast_one"
-                android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle"/>
-
-            <LinearLayout
-                android:background="@drawable/custom_media_bg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginHorizontal="@dimen/_20sdp">
-
-                <ImageView
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center"
-                    app:tint="#6E6666"
-                    android:src="@drawable/ic_video"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/select_video"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:background="@drawable/custom_btn_bg"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginHorizontal="@dimen/_20sdp">
-
-                <LinearLayout
-                    android:background="@drawable/custom_media_bg"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_10sdp">
-
-                    <ImageView
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_gravity="center"
-                        app:tint="#B2ABAB"
-                        android:src="@drawable/ic_camera"/>
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/select_photo"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:background="@drawable/custom_btn_bg"/>
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="@dimen/_5sdp"
-                    android:layout_height="match_parent"/>
-
-                <LinearLayout
-                    android:background="@drawable/custom_media_bg"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_10sdp">
-
-                    <ImageView
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_gravity="center"
-                        app:tint="#B2ABAB"
-                        android:src="@drawable/ic_camera"/>
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/select_photo"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:background="@drawable/custom_btn_bg"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/show_hide_more_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FDF3DD"
-                android:gravity="center_vertical"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/click_below_for_more_info"
-                    android:textStyle="bold"/>
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:src="@drawable/ic_dropdown"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:id="@+id/fill_more_info_layout">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/has_baby"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    style="@style/CustomTitleStyle" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/custom_field_bg"
-                    android:padding="@dimen/_8sdp">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:drawableEnd="@drawable/ic_dropdown"
-                        android:editable="false"
-                        android:hint="@string/select_delivery_status"
-                        android:inputType="none" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/is_pregnant"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    style="@style/CustomTitleStyle" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/custom_field_bg"
-                    android:padding="@dimen/_8sdp">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:drawableEnd="@drawable/ic_dropdown"
-                        android:editable="false"
-                        android:hint="@string/choose_pregnancy_status"
-                        android:inputType="none" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/is_calf_with_animal"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    style="@style/CustomTitleStyle" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/custom_field_bg"
-                    android:padding="@dimen/_8sdp">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:drawableEnd="@drawable/ic_dropdown"
-                        android:editable="false"
-                        android:hint="@string/select"
-                        android:inputType="none" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/more_information"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    style="@style/CustomTitleStyle" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:gravity="top"
-                    android:background="@drawable/custom_field_bg"
-                    android:padding="@dimen/_8sdp">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:hint="@string/animal_more_info"
-                        android:inputType="text"
-                        android:maxLines="3"
-                        android:maxHeight="@dimen/_50sdp"/>
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/sub_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/submit_animal"
-                    android:textSize="@dimen/_13ssp"
-                    android:layout_marginVertical="@dimen/_25sdp"
-                    android:background="@drawable/custom_btn_bg"
-                    />
-
-            </LinearLayout>
+                android:hint="@string/milk_hint"
+                android:inputType="number"
+                android:padding="@dimen/_8sdp" />
 
         </LinearLayout>
+
+
+        <TextView
+            style="@style/CustomTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/price" />
+
+        <EditText
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/custom_field_bg"
+            android:hint="@string/price_hint"
+            android:inputType="number"
+            android:padding="@dimen/_8sdp" />
+
+        <CheckBox
+            android:id="@+id/select_negotiable"
+            style="@style/CustomTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/is_negotiable" />
+
+        <TextView
+            style="@style/CustomTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/click_atleast_one" />
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/custom_media_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_video"
+                app:tint="#6E6666" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@drawable/custom_btn_bg"
+                android:text="@string/select_video" />
+
+        </LinearLayout>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_10sdp"/>
+
+        <RelativeLayout
+            android:id="@+id/select_photo"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_80sdp"
+            android:orientation="vertical"
+            android:background="@drawable/custom_media_bg"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_camera"
+                />
+
+        </RelativeLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp">
+
+            <RelativeLayout
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_120sdp"
+                android:orientation="vertical"
+                android:background="@drawable/custom_media_bg"
+                android:padding="@dimen/_5sdp">
+
+                <LinearLayout
+                    android:id="@+id/select_lay"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ic_close"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/close"/>
+
+                    <TextView
+                        android:textSize="10sp"
+                        android:id="@+id/img_path"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="img.png"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/select_photo"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_camera"
+                    />
+
+                <ImageView
+                    android:id="@+id/photo"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:visibility="gone"
+                    android:layout_alignParentBottom="true"
+                    />
+
+
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_media_bg"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_camera"
+                    app:tint="#B2ABAB" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/custom_btn_bg"
+                    android:text="@string/select_photo" />
+
+            </LinearLayout>
+
+        </LinearLayout>-->
+
+        <LinearLayout
+            android:id="@+id/show_hide_more_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="#FDF3DD"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/click_below_for_more_info"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:src="@drawable/ic_dropdown" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fill_more_info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                style="@style/CustomTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/has_baby" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <Spinner
+                    android:id="@+id/is_animal_deliever"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_field_bg"/>
+
+                <Spinner
+                    android:id="@+id/delievery_time"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/custom_field_bg"/>
+            </LinearLayout>
+
+            <!--<EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/custom_field_bg"
+                android:drawableEnd="@drawable/ic_dropdown"
+                android:editable="false"
+                android:hint="@string/select_delivery_status"
+                android:inputType="none"
+                android:padding="@dimen/_8sdp" />-->
+
+            <TextView
+                style="@style/CustomTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/is_pregnant" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <Spinner
+                    android:id="@+id/is_pregnent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_field_bg"/>
+
+                <Spinner
+                    android:id="@+id/pregnent_time"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/custom_field_bg"/>
+            </LinearLayout>
+
+            <!--<EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/custom_field_bg"
+                android:drawableEnd="@drawable/ic_dropdown"
+                android:editable="false"
+                android:hint="@string/choose_pregnancy_status"
+                android:inputType="none"
+                android:padding="@dimen/_8sdp" />-->
+
+
+            <TextView
+                style="@style/CustomTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/is_calf_with_animal" />
+
+            <Spinner
+                android:id="@+id/is_calf_available"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/custom_field_bg"/>
+
+            <!--<EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/custom_field_bg"
+                android:drawableEnd="@drawable/ic_dropdown"
+                android:editable="false"
+                android:hint="@string/select"
+                android:inputType="none"
+                android:padding="@dimen/_8sdp" />-->
+
+
+            <TextView
+                style="@style/CustomTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/more_information" />
+
+            <EditText
+                android:id="@+id/more_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/custom_field_bg"
+                android:gravity="top"
+                android:hint="@string/animal_more_info"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/_8sdp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/sub_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_25sdp"
+            android:background="@drawable/custom_btn_bg"
+            android:text="@string/submit_animal"
+            android:textSize="@dimen/_13ssp" />
+
+    </LinearLayout>
 
 
 </ScrollView>

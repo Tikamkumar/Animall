@@ -29,6 +29,11 @@ class UserViewModel(): ViewModel() {
         fun onError(error: String)
     }
 
+    interface ResponseCallback {
+        fun onSuccess(response: Boolean)
+        fun onError(error: String)
+    }
+
     /*private val _createUserResponse = MutableLiveData<CreateUserResponse?>()
     val createUserResponse: LiveData<CreateUserResponse?> get() = _createUserResponse
 
@@ -74,6 +79,17 @@ class UserViewModel(): ViewModel() {
             }
          /*   val response = repository.sendLocation(longitude, latitude, token)
             _locationResponse.value = response*/
+        }
+    }
+
+    fun regName(name: String, token: String, callBack: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val res = repository.regName(name, token)
+                callBack.onSuccess(res)
+            } catch(e: Exception) {
+                callBack.onError(e.message.toString())
+            }
         }
     }
 

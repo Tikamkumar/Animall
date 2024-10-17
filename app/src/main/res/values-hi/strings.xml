@@ -86,4 +86,55 @@
     <string name="education_level">शैक्षिक स्तर क्या है?</string>
     <string name="submit">दर्ज करे</string>
 
+    <string-array name="lactation_option">
+        <item>कोई स्तनपान नहीं (0)</item>
+        <item>पहला (1)</item>
+        <item>दूसरा (2)</item>
+        <item>तीसरा (3)</item>
+        <item>चौथा (4)</item>
+        <item>पांचवां (5)</item>
+        <item>छठवां (6)</item>
+        <item>सातवां (7)</item>
+    </string-array>
+
+    <string-array name="calf_option">
+        <item>चुनें</item>
+        <item>बछड़ा है</item>
+        <item>बछड़ी है</item>
+        <item>कुछ नही है</item>
+    </string-array>
+
+    <string-array name="yes_no_option">
+        <item>चुनें</item>
+        <item>हाँ</item>
+        <item>नहीं</item>
+    </string-array>
+
+    <string-array name="time_duration">
+        <item>इस सप्ताह</item>
+        <item>1 सप्ताह पहले</item>
+        <item>2 सप्ताह पहले</item>
+        <item>3 सप्ताह पहले</item>
+        <item>1 महीना पहले</item>
+        <item>2 महीने पहले</item>
+        <item>3 महीने पहले</item>
+        <item>4 महीने पहले</item>
+        <item>5 महीने पहले</item>
+        <item>6 महीने पहले</item>
+        <item>1 वर्ष पहले</item>
+        <item>2 वर्ष पहले</item>
+        <item>2 वर्ष से अधिक पहले</item>
+    </string-array>
+
+    <string-array name="pregnant_time">
+        <item>1 महीने की गर्भवती</item>
+        <item>2 महीने की गर्भवती</item>
+        <item>3 महीने की गर्भवती</item>
+        <item>4 महीने की गर्भवती</item>
+        <item>5 महीने की गर्भवती</item>
+        <item>6 महीने की गर्भवती</item>
+        <item>7 महीने की गर्भवती</item>
+        <item>8 महीने की गर्भवती</item>
+        <item>9 महीने की गर्भवती</item>
+    </string-array>
 </resources>

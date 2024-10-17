@@ -36,6 +36,12 @@ class UserRepository {
         return RetrofitClient.api.saveLocation(token, request)
     }
 
+    suspend fun regName(name: String, token: String): Boolean {
+        val request = mapOf("name" to name)
+        val response = RetrofitClient.api.regName(token, request)
+        return response.isSuccessful
+    }
+
     /*suspend fun verifyMobile(mobile: String, otp: String): OtpResponse? {
         try {
             val request = OtpRequest(mobile, otp)

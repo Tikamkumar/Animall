@@ -40,6 +40,8 @@ android {
     }*/
 }
 
+
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -53,6 +55,9 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.circularImage)
     implementation(libs.googleMap)
+    implementation(libs.imagepicker)
+    implementation(libs.okhttp)
+    implementation(libs.swipelayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)

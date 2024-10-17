@@ -85,6 +85,57 @@
     <string name="education_level">What is your education level?</string>
     <string name="submit">Submit</string>
 
+    <string-array name="lactation_option">
+        <item>No lactation (0)</item>
+        <item>First (1)</item>
+        <item>Second (2)</item>
+        <item>Third (3)</item>
+        <item>Fourth (4)</item>
+        <item>Fifth (5)</item>
+        <item>Sixth (6)</item>
+        <item>Seventh (7)</item>
+    </string-array>
+
+    <string-array name="time_duration">
+        <item>This week</item>
+        <item>1 week ago</item>
+        <item>2 week ago</item>
+        <item>3 week ago</item>
+        <item>1 month ago</item>
+        <item>2 month ago</item>
+        <item>3 month ago</item>
+        <item>4 month ago</item>
+        <item>5 month ago</item>
+        <item>6 month ago</item>
+        <item>1 year ago</item>
+        <item>1.5 year ago</item>
+        <item>More than 2 year ago</item>
+    </string-array>
+
+    <string-array name="pregnant_time">
+        <item>1 month pregnant</item>
+        <item>2 months pregnant</item>
+        <item>3 months pregnant</item>
+        <item>4 months pregnant</item>
+        <item>5 months pregnant</item>
+        <item>6 months pregnant</item>
+        <item>7 months pregnant</item>
+        <item>8 months pregnant</item>
+        <item>9 months pregnant</item>
+    </string-array>
+
+    <string-array name="calf_option">
+        <item>Select</item>
+        <item>Male Calf</item>
+        <item>Female Calf</item>
+        <item>No Calf</item>
+    </string-array>
+
+    <string-array name="yes_no_option">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 
     <string name="term_and_condition">खाता बनाकर आप हमारी <u> सेवा की शर्तों (Terms of Service)</u> और <u>गोपनीयता नीति (Privacy Policy)</u> से सहमत होते हैं।</string>
     <string name="mobile_invalid_msg">जिस नंबर से कॉल करते हैं डाले 👆</string>

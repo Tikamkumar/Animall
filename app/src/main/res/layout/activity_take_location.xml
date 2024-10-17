@@ -68,7 +68,6 @@
             android:layout_height="@dimen/_200sdp"
             android:src="@drawable/cow_location"
             android:layout_centerInParent="true"/>
-
     </RelativeLayout>
 
     <Button

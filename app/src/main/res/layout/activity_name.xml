@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".signup.EnterMobileActivity">
+    tools:context=".signup.NameActivity">
 
     <LinearLayout
         android:layout_marginTop="@dimen/_20sdp"
@@ -64,12 +64,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:id="@+id/mobile_number"
+            android:id="@+id/name"
             android:hint="यहाँ नाम लिखें"
             android:layout_margin="0dp"
             android:textSize="@dimen/_12ssp"
             android:textColorHint="#A7A1A8"
-            android:inputType="number"/>
+            android:inputType="text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,7 +82,7 @@
         android:visibility="gone"
         tools:visibility="visible"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:text="@string/mobile_invalid_msg"/>
+        android:text="अपना नाम डाले 👆"/>
 
 
     <Button

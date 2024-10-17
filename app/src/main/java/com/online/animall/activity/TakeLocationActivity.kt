@@ -58,20 +58,34 @@ class TakeLocationActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
         binding.getLocation.setOnClickListener {
-//           getLastLocation()
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                // Show an explanation to the user
-                showPermissionRationale()
-            }
+            getLastLocation()
+            /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // Request permission
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+            } else {
+                // Permission is granted, retrieve the location
+                // getLocation()
+            }*/
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+//                    // Show an explanation to the user
+//                    Toast.makeText(this, "Location permission is needed to show your location", Toast.LENGTH_SHORT).show()
+//                    // Request permission
+//                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+//                } else {
+//                    // Permission denied with "Don't ask again"
+//                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+//                    Toast.makeText(this, "Location permission is denied. Please enable it in app settings.", Toast.LENGTH_LONG).show()
+//                    // Optionally, you could direct the user to app settings
+//                    // openAppSettings()
+//                }
+//            }
         }
     }
 
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
-        Log.i("Permission", "${checkPermission()}")
-        // check if permissions are given
         if (checkPermission()) {
-
             if (isLocationEnabled()) {
                 mFusedLocationClient?.lastLocation
                     ?.addOnCompleteListener { task ->
@@ -79,8 +93,10 @@ class TakeLocationActivity : AppCompatActivity() {
                         if (location == null) {
                             requestNewLocationData()
                         } else {
+                            Log.i("Longitude : ", "${location.longitude}")
+                            Log.i("Latitude : ", "${location.latitude}")
                             try {
-                               /* userViewModel.locationResponse.observe(this) { response ->
+                                /*userViewModel.locationResponse.observe(this) { response ->
                                     if(response != null) {
                                         val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
@@ -172,20 +188,30 @@ class TakeLocationActivity : AppCompatActivity() {
 
     // method to request for permissions
     private fun requestPermission() {
-        Toast.makeText(this, "Ask for permission", Toast.LENGTH_LONG).show()
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            // Show an explanation to the user
-            showPermissionRationale()
-        } else {
+        if(userPreferences.isfirstTimeLocation()) {
+            userPreferences.setFirstTimeLocation()
             ActivityCompat.requestPermissions(
                 this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID
             )
+        } else {
+            showPermissionDeniedDialog()
         }
-        /*ActivityCompat.requestPermissions(
-            this, arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ), PERMISSION_ID
-        )*/
+        /*if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Show an explanation to the user
+            Toast.makeText(this, "Inside shouldShow", Toast.LENGTH_LONG).show()
+
+            showPermissionRationale()
+        } else {
+            Toast.makeText(this, "Inside", Toast.LENGTH_LONG).show()
+            if(userPreferences.isfirstTimeLocation()) {
+                userPreferences.setFirstTimeLocation()
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID
+                )
+            } else {
+                showPermissionDeniedDialog()
+            }
+        }*/
     }
 
     private fun showPermissionRationale() {
@@ -203,7 +229,7 @@ class TakeLocationActivity : AppCompatActivity() {
 
     private fun showPermissionDeniedDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Permission Denied")
+            .setTitle("Allow Permission")
             .setMessage("Location permission is required for this app. You can enable it in the app settings.")
             .setPositiveButton("Go to Settings") { _, _ ->
                 // Open app settings

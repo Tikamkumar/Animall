@@ -124,6 +124,7 @@ class VerifyMobile : AppCompatActivity() {
 
                          override fun onError(error: String) {
                              hideKeyboard()
+                             Log.e("Error:", error)
                              SnackbarUtil.error(binding.main, "Invalid OTP..")
                          }
                      })

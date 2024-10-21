@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
+import android.app.LocaleManager
 import android.content.ContentResolver
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -26,14 +27,17 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.gson.Gson
+import com.online.animall.LocaleHelper
 import com.online.animall.R
 import com.online.animall.adapter.ImgAdapter
 import com.online.animall.adapter.SingleChoiceAdapter
 import com.online.animall.data.local.UserPreferences
 import com.online.animall.data.model.SellAnimalResponse
 import com.online.animall.databinding.FragmentSellAnimalFormBinding
+import com.online.animall.home.MainActivity
 import com.online.animall.presentation.dialog.LoadingDialog
 import com.online.animall.presentation.viewmodel.AnimalViewModel
 import com.online.animall.utils.SnackbarUtil
@@ -78,46 +82,26 @@ class SellAnimalFormFragment : Fragment() {
     private val viewModel: AnimalViewModel by viewModels()
     private lateinit var loader: LoadingDialog
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        animalViewModel.getAnimals(userPref.getToken()!!, object: AnimalViewModel.GetAnimalCallback {
-            override fun onSuccess(response: Response<ResponseBody>) {
-                val data = JSONObject(response.body()!!.string())
-                animalData = data.getJSONArray("data")
-                for (animal in 0 until animalData.length()) {
-                    animalName.add(animalData.getJSONObject(animal)["name"].toString())
-                }
-                val adapter: ArrayAdapter<String> =
-                    ArrayAdapter<String>(
-                        requireContext(),
-                        android.R.layout.simple_spinner_dropdown_item,
-                        animalName
-                    )
-                binding.selectAnimal.adapter = adapter
-            }
-
-            override fun onError(error: String) {
-                Log.e("Error: ", error.toString())
-            }
-
-        })
-    }
-
     @SuppressLint("ResourceType")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSellAnimalFormBinding.bind(
-            inflater.inflate(
-                R.layout.fragment_sell_animal_form,
+        binding = FragmentSellAnimalFormBinding.bind(inflater.inflate(R.layout.fragment_sell_animal_form,
                 container,
                 false
             )
         )
         userPref = UserPreferences(requireContext())
         setUpImgRecView()
+
+        val activity = (activity as MainActivity)
+        fetchData(activity.refreshLayout)
+
+        activity.refreshLayout.setOnRefreshListener {
+            animalName.clear()
+            fetchData(activity.refreshLayout)
+        }
 
         animalName = mutableListOf()
         animalData = JSONArray()
@@ -323,10 +307,10 @@ class SellAnimalFormFragment : Fragment() {
     private fun showHideInfoLayout() {
         if (binding.fillMoreInfoLayout.visibility == View.VISIBLE) {
             binding.fillMoreInfoLayout.visibility = View.GONE
-            binding.root.post(Runnable { binding.root.smoothScrollTo(0, binding.root.bottom) })
+//            binding.root.post(Runnable { binding.root.smoothScrollTo(0, binding.root.bottom) })
         } else {
             binding.fillMoreInfoLayout.visibility = View.VISIBLE
-            binding.root.post(Runnable { binding.root.smoothScrollTo(0, binding.root.bottom) })
+//            binding.root.post(Runnable { binding.root.smoothScrollTo(0, binding.root.bottom) })
         }
     }
 
@@ -444,7 +428,6 @@ class SellAnimalFormFragment : Fragment() {
 
     private fun uploadAnimal() {
         loader.show()
-
         try {
             val request = SellAnimalResponse(
                 animalId.toRequestBody("text/plain".toMediaTypeOrNull()),
@@ -510,6 +493,54 @@ class SellAnimalFormFragment : Fragment() {
         binding.selectNegotiable.isChecked = false
         fetchImgs.clear()
         imgAdapter.updateList(fetchImgs)
+    }
+
+    private fun fetchData(refreshLayout: SwipeRefreshLayout) {
+        animalViewModel.getAnimalCategory(userPref.getToken()!!, object: AnimalViewModel.GetAnimalCallback {
+            override fun onSuccess(response: Response<ResponseBody>) {
+                refreshLayout.isRefreshing = false
+//                (activity).refreshLayout.isRefreshing = false
+                val body = JSONObject(response.body()!!.string())
+                val data = body.getJSONArray("data")
+                Log.i("Response: ", data.toString())
+
+                for(item in 0 until data.length()) {
+                    val lang = data.getJSONObject(item).getJSONArray("lang")
+                    for(i in 0 until lang.length()) {
+                       val userLang = LocaleHelper.getLocaleCode(requireActivity())
+                        val code = lang.getJSONObject(i)["langCode"].toString()
+                        if(userLang == code) {
+                            animalName.add(lang.getJSONObject(i)["name"].toString())
+                        }
+                    }
+                }
+
+               /* for(item in 0 until lang.length()) {
+                    val langCode = lang.getJSONObject(0)["langCode"]
+                    if(langCode == LocaleHelper.getLocale(requireActivity())) {
+                        animalName.add(lang.getJSONObject(0)["name"].toString())
+                    }
+                }
+                animalData = data.getJSONArray("data")
+                *//*for (animal in 0 until animalData.length()) {
+                    animalName.add(animalData.getJSONObject(animal)["name"].toString())
+                }*//*
+                */
+                val adapter: ArrayAdapter<String> =
+                    ArrayAdapter<String>(
+                        requireContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        animalName
+                    )
+                binding.selectAnimal.adapter = adapter
+            }
+
+            override fun onError(error: String) {
+                refreshLayout.isRefreshing = false
+                Log.e("Error: ", error.toString())
+            }
+
+        })
     }
 
 }

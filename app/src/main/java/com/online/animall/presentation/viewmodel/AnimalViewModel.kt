@@ -5,20 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.online.animall.data.model.CreateUserResponse
 import com.online.animall.data.model.SellAnimalResponse
 import com.online.animall.data.repository.AnimalRepository
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
+import org.json.JSONObject
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class AnimalViewModel: ViewModel() {
-    val repository = AnimalRepository()
+    private val repository = AnimalRepository()
 
     interface GetAnimalBreedCallback {
         fun onSuccess(response: Response<ResponseBody>)
@@ -35,21 +32,26 @@ class AnimalViewModel: ViewModel() {
         fun onError(error: String)
     }
 
+    interface ResponseCallback {
+        fun onSuccess(response: Response<ResponseBody>)
+        fun onError(error: String)
+    }
+
     private val _getAnimalResponse = MutableLiveData<Response<ResponseBody>?>()
     val getAnimalResponse: LiveData<Response<ResponseBody>?> get() = _getAnimalResponse
 
-    fun getAnimals(token: String, callback: GetAnimalCallback) {
+    fun getAnimalCategory(token: String, callback: GetAnimalCallback) {
         viewModelScope.launch {
             try {
-               val response =  repository.getAnimals(token)
-                if(response.isSuccessful)
+                val response = repository.getAnimalCategory(token)
+                if (response.isSuccessful)
                     callback.onSuccess(response)
 //                    _getAnimalResponse.value = response
                 else
-                    callback.onError(response.message())
+                    callback.onError(response.errorBody().toString())
 //                    _getAnimalResponse.value = null
                 Log.i("Response : Token", "${response.message()}, $token")
-            } catch(exp: Exception) {
+            } catch (exp: Exception) {
 //                _getAnimalResponse.value = null
                 callback.onError(exp.toString())
                 Log.e("Error: ", exp.toString())
@@ -57,36 +59,99 @@ class AnimalViewModel: ViewModel() {
         }
     }
 
-    fun getAnimalBreed(token: String, search: String?, animalId: String, callback: GetAnimalBreedCallback) {
+    fun getAnimalBreed(
+        token: String,
+        search: String?,
+        animalId: String,
+        callback: GetAnimalBreedCallback
+    ) {
         viewModelScope.launch {
             try {
-                val response =  repository.getAnimalBreed(token, search, animalId)
-                if(response.isSuccessful)
+                val response = repository.getAnimalBreed(token, search, animalId)
+                if (response.isSuccessful)
                     callback.onSuccess(response)
                 else
-                    callback.onError(response.message())
+                    callback.onError(response.errorBody().toString())
                 Log.i("Response : Token", "${response.message()}, $token")
-            } catch(exp: Exception) {
+            } catch (exp: Exception) {
                 callback.onError(exp.message.toString())
                 Log.e("Error: ", exp.toString())
             }
         }
     }
 
-    fun uploadSellAnimal(token: String, file: List<MultipartBody.Part>, request: SellAnimalResponse, callback: SellAnimalCallback) {
+    fun uploadSellAnimal(
+        token: String,
+        file: List<MultipartBody.Part>,
+        request: SellAnimalResponse,
+        callback: SellAnimalCallback
+    ) {
         viewModelScope.launch {
             try {
                 val response = repository.uploadSellAnimal(token, request, file)
-                if(response.isSuccessful)
+                if (response.isSuccessful)
                     callback.onSuccess(response)
                 else
                     callback.onError(response.errorBody()!!.string())
-            } catch(exp: Exception) {
+            } catch (exp: Exception) {
                 callback.onError(exp.message.toString())
                 Log.i("Message: ", exp.message.toString())
             }
         }
     }
+
+    fun getYourAnimal(token: String, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getYourAnimals(token)
+                if (response.isSuccessful)
+                    callback.onSuccess(response)
+                else
+                    callback.onError(response.errorBody().toString())
+            } catch (exp: Exception) {
+                callback.onError(exp.message.toString())
+            }
+        }
+    }
+
+    fun createPost(
+        token: String,
+        image: List<MultipartBody.Part>,
+        text: RequestBody,
+        data_type: RequestBody,
+        callback: ResponseCallback
+    ) {
+        viewModelScope.launch {
+            try {
+                val response = repository.createPost(token, image, text, data_type)
+
+                if (response.isSuccessful) {
+                    callback.onSuccess(response)
+                } else {
+                    val errorMsg =
+                        JSONObject(response.errorBody()!!.string())["errorMsg"].toString()
+                    callback.onError(errorMsg)
+                }
+            } catch (exp: Exception) {
+                callback.onError(exp.message.toString())
+            }
+        }
+    }
+
+    fun getAllPost(token: String, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getAllPost(token)
+                if (response.isSuccessful)
+                    callback.onSuccess(response)
+                else
+                    callback.onError(response.errorBody()!!.string())
+            } catch (exp: Exception) {
+                callback.onError(exp.message.toString())
+            }
+        }
+    }
+
 
 
     /*fun getAnimals(token: String, callback: (ResponseBody?, String?) -> Unit) {

@@ -84,7 +84,6 @@
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:text="अपना नाम डाले 👆"/>
 
-
     <Button
         android:id="@+id/proceed_btn"
         android:layout_width="match_parent"

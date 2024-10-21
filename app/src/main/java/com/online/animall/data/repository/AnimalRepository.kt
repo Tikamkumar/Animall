@@ -11,12 +11,8 @@ import retrofit2.http.Multipart
 
 class AnimalRepository {
 
-    /*suspend fun getAnimals(token: String): Call<ResponseBody> {
-        return RetrofitClient.api.getAnimals(token)
-    }*/
-
-    suspend fun getAnimals(token: String): Response<ResponseBody> {
-        return RetrofitClient.api.getAnimals(token)
+    suspend fun getAnimalCategory(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getAnimalCategory(token)
     }
 
     suspend fun getAnimalBreed(
@@ -50,5 +46,17 @@ class AnimalRepository {
             request.pregnent,
             request.calfGender
         )
+    }
+
+    suspend fun getYourAnimals(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getYourAnimal(token)
+    }
+
+    suspend fun createPost(token: String, image: List<MultipartBody.Part>, text: RequestBody, data_type: RequestBody): Response<ResponseBody> {
+        return RetrofitClient.api.createPost(token, image, text, data_type)
+    }
+
+    suspend fun getAllPost(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getAllPost(token)
     }
 }

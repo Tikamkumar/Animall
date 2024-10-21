@@ -85,6 +85,12 @@
     <string name="why_use_app">आप एनिमल ऐप का उपयोग क्यों करते हैं?</string>
     <string name="education_level">शैक्षिक स्तर क्या है?</string>
     <string name="submit">दर्ज करे</string>
+    <string name="write_something">अपने पशु के बारे में यहाँ कुछ लिखें!</string>
+    <string name="write_your_post">अपना पोस्ट लिखें</string>
+    <string name="new_post">नया पोस्ट</string>
+    <string name="select_image_jpg_png">फ़ोटो चुनें (jpg, png)</string>
+
+
 
     <string-array name="lactation_option">
         <item>कोई स्तनपान नहीं (0)</item>

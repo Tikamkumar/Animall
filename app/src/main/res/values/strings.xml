@@ -84,6 +84,12 @@
     <string name="why_use_app">Why do you use the Animall App?</string>
     <string name="education_level">What is your education level?</string>
     <string name="submit">Submit</string>
+    <string name="write_something">Write something about your cattle here!</string>
+    <string name="write_your_post">Write your post</string>
+    <string name="new_post">New Post</string>
+    <string name="select_image_jpg_png">Select Image (jpg, png)</string>
+
+
 
     <string-array name="lactation_option">
         <item>No lactation (0)</item>

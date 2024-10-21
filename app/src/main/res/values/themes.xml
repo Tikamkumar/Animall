@@ -22,5 +22,10 @@
       <item name="android:textSize">@dimen/_12ssp</item>
       <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="SubmitBtnStyle">
+        <item name="backgroundTint">@color/navy</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
     
 </resources>

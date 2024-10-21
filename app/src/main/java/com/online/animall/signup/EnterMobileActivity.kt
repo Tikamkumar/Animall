@@ -34,19 +34,12 @@ class EnterMobileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityEnterMobileBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
 
         setContentView(binding.root)
         loadingDialog = LoadingDialog(this)
 
         binding.proceedBtn.setOnClickListener {
             signUp()
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
 
         binding.root.setOnClickListener {

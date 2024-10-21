@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
     tools:context=".fragments.SellAnimalFormFragment">
 
     <LinearLayout
-        android:paddingHorizontal="@dimen/_20sdp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_20sdp">
 
         <TextView
             style="@style/CustomTitleStyle"
@@ -24,9 +24,9 @@
             android:id="@+id/select_animal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/custom_field_bg"/>
+            android:background="@drawable/custom_field_bg"
+            android:paddingStart="@dimen/_8sdp" />
 
         <!--<EditText
             android:id="@+id/select_animal"
@@ -51,9 +51,9 @@
             android:id="@+id/select_breed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/custom_field_bg"/>
+            android:background="@drawable/custom_field_bg"
+            android:paddingStart="@dimen/_8sdp" />
 
         <!--<EditText
             android:layout_width="match_parent"
@@ -83,9 +83,9 @@
                 android:id="@+id/select_lactation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"/>
+                android:background="@drawable/custom_field_bg"
+                android:paddingStart="@dimen/_8sdp" />
 
             <!--<EditText
                 android:layout_width="match_parent"
@@ -196,23 +196,22 @@
             android:id="@+id/rec_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_10sdp"/>
+            android:layout_marginVertical="@dimen/_10sdp" />
 
         <RelativeLayout
             android:id="@+id/select_photo"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_media_bg"
             android:minHeight="@dimen/_80sdp"
             android:orientation="vertical"
-            android:background="@drawable/custom_media_bg"
             android:padding="@dimen/_5sdp">
 
             <ImageView
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_camera"
-                />
+                android:src="@drawable/ic_camera" />
 
         </RelativeLayout>
 
@@ -347,19 +346,19 @@
                 <Spinner
                     android:id="@+id/is_animal_deliever"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/_8sdp"
-                    android:background="@drawable/custom_field_bg"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_field_bg"
+                    android:paddingStart="@dimen/_8sdp" />
 
                 <Spinner
                     android:id="@+id/delievery_time"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:background="@drawable/custom_field_bg"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_field_bg"
+                    android:paddingStart="@dimen/_8sdp" />
             </LinearLayout>
 
             <!--<EditText
@@ -388,19 +387,19 @@
                 <Spinner
                     android:id="@+id/is_pregnent"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/_8sdp"
-                    android:background="@drawable/custom_field_bg"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_field_bg"
+                    android:paddingStart="@dimen/_8sdp" />
 
                 <Spinner
                     android:id="@+id/pregnent_time"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:background="@drawable/custom_field_bg"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_field_bg"
+                    android:paddingStart="@dimen/_8sdp" />
             </LinearLayout>
 
             <!--<EditText
@@ -426,9 +425,9 @@
                 android:id="@+id/is_calf_available"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"/>
+                android:background="@drawable/custom_field_bg"
+                android:paddingStart="@dimen/_8sdp" />
 
             <!--<EditText
                 android:layout_width="match_parent"
@@ -473,5 +472,4 @@
 
     </LinearLayout>
 
-
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

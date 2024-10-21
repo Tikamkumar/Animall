@@ -26,18 +26,18 @@
                     android:id="@+id/ic_back"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
-                    android:padding="@dimen/_5sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_back" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:text="@string/profile"
-                    android:textSize="@dimen/_15ssp"
                     android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -48,14 +48,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:scrollbars="none"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_20sdp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/_20sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
@@ -67,14 +67,15 @@
                     android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_70sdp"
                     android:src="@drawable/ic_me"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:civ_border_color="@color/black"
                     app:civ_border_width="@dimen/_1sdp"
-                    app:civ_border_color="#9A9595"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/ic_camera"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:scaleType="centerCrop"
@@ -86,49 +87,35 @@
 
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
-                style="@style/CustomTitleStyle"/>
+                android:text="@string/name" />
 
-            <LinearLayout
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:text="Tikam kumar"
-                    android:inputType="number" />
-
-            </LinearLayout>
+                android:inputType="text"
+                android:padding="@dimen/_8sdp"
+                android:text="Tikam kumar" />
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/address"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
+                android:text="@string/address" />
 
-            <LinearLayout
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:text="15/219 i m p pura tajganj agra"
-                    android:inputType="number" />
-
-            </LinearLayout>
+                android:inputType="number"
+                android:padding="@dimen/_8sdp"
+                android:text="15/219 i m p pura tajganj agra" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,33 +129,28 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/CustomTitleStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/whatsapp_no"
                         android:layout_marginTop="@dimen/_10sdp"
-                        style="@style/CustomTitleStyle" />
+                        android:text="@string/whatsapp_no" />
 
-                    <LinearLayout
+
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_field_bg"
-                        android:padding="@dimen/_8sdp">
+                        android:inputType="number"
+                        android:padding="@dimen/_8sdp"
+                        android:text="9389494850" />
 
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:text="9389494850"
-                            android:inputType="number" />
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
                 <Space
                     android:layout_width="@dimen/_10sdp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -177,42 +159,44 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/CustomTitleStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/phone_no"
                         android:layout_marginTop="@dimen/_10sdp"
-                        style="@style/CustomTitleStyle" />
+                        android:text="@string/phone_no" />
 
-                    <LinearLayout
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_field_bg"
-                        android:padding="@dimen/_8sdp">
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:text="9389494850"
-                            android:inputType="number" />
-
-                    </LinearLayout>
+                        android:inputType="number"
+                        android:padding="@dimen/_8sdp"
+                        android:text="9389494850" />
 
                 </LinearLayout>
 
 
-
             </LinearLayout>
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/birthday"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
+                android:text="@string/birthday" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/pick_dob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/custom_field_bg"
+                android:editable="false"
+                android:inputType="none"
+                android:padding="@dimen/_8sdp" />
+
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -227,45 +211,40 @@
                     android:editable="false"
                     android:inputType="none" />
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <TextView
-                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_of_animal"
-                style="@style/CustomTitleStyle" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/no_of_animal" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/custom_field_bg"
+                    android:padding="@dimen/_8sdp"
                     android:inputType="number" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:hint="30000"
-                    android:inputType="number" />
-
-            </LinearLayout>
-
             <TextView
+                android:id="@+id/profession_spinner"
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/work"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
+                android:text="@string/work" />
 
-            <LinearLayout
+            <Spinner
+                android:id="@+id/select_animal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/custom_field_bg"/>
+
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -281,92 +260,61 @@
                     android:hint="@string/select"
                     android:inputType="none" />
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/year_of_husbandry"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
+                android:text="@string/year_of_husbandry" />
 
-            <LinearLayout
+            <Spinner
+                android:id="@+id/select_experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:drawableEnd="@drawable/ic_dropdown"
-                    android:editable="false"
-                    android:hint="@string/select"
-                    android:inputType="none" />
-
-            </LinearLayout>
+                android:background="@drawable/custom_field_bg"/>
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/why_use_app"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
+                android:text="@string/why_use_app" />
 
-            <LinearLayout
+            <Spinner
+                android:id="@+id/select_reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:drawableEnd="@drawable/ic_dropdown"
-                    android:editable="false"
-                    android:hint="@string/select"
-                    android:inputType="none" />
-
-            </LinearLayout>
+                android:background="@drawable/custom_field_bg"/>
 
             <TextView
+                style="@style/CustomTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/education_level"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/CustomTitleStyle" />
+                android:text="@string/education_level" />
 
-            <LinearLayout
+            <Spinner
+                android:id="@+id/select_education"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/custom_field_bg"
-                android:padding="@dimen/_8sdp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:drawableEnd="@drawable/ic_dropdown"
-                    android:editable="false"
-                    android:hint="@string/select"
-                    android:inputType="none" />
-
-            </LinearLayout>
+                android:background="@drawable/custom_field_bg"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_20sdp"
                 android:backgroundTint="@color/primary"
                 android:text="@string/submit"
-                android:textSize="@dimen/_12ssp"
-                android:background="@drawable/custom_field_bg"
                 android:textColor="@color/white"
-                android:layout_marginVertical="@dimen/_20sdp"/>
+                android:textSize="@dimen/_12ssp" />
 
         </LinearLayout>
 

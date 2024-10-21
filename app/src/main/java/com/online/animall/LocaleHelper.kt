@@ -35,6 +35,11 @@ object LocaleHelper {
             setLocale(savedLanguage ?: "hi", activity)  // Recreate the activity to apply the new locale
         }
     }
+
+    fun getLocaleCode(activity: Activity): String {
+        val sharedPreferences = activity.getSharedPreferences("app_prefs", MODE_PRIVATE)
+        return sharedPreferences.getString("language", "hi")!!
+    }
     /*private const val SELECTED_LANGUAGE = "Locale.Helper.Selected.Language"
 
     // Method to set the language at runtime

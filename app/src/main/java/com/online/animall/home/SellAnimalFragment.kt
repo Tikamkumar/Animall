@@ -1,15 +1,14 @@
 package com.online.animall.home
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.online.animall.R
-import com.online.animall.activity.YourAnimalActivity
 import com.online.animall.adapter.SellAnimalAdapter
 import com.online.animall.databinding.FragmentSellAnimalBinding
 import com.online.animall.fragments.SellAnimalFormFragment
@@ -56,11 +55,22 @@ class SellAnimalFragment : Fragment() {
             }
         })
 
+
+        /*binding.viewPager.setOnTouchListener(object: View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                if (event!!.action === MotionEvent.ACTION_DOWN &&
+                    v is ViewGroup
+                ) {
+                    v.requestDisallowInterceptTouchEvent(true)
+                }
+                return false
+            }
+        })*/
+
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager.currentItem = tab.position
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })

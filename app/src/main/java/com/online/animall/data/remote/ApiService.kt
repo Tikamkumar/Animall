@@ -19,7 +19,6 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
 
-
 interface ApiService {
 
    /* @POST("sign-up")
@@ -48,7 +47,7 @@ interface ApiService {
     suspend fun getAnimals(@Header("Authorization") token: String): Call<ResponseBody>*/
 
     @GET("get-animal")
-    suspend fun getAnimals(@Header("Authorization") token: String): Response<ResponseBody>
+    suspend fun getAnimalCategory(@Header("Authorization") token: String): Response<ResponseBody>
 
     @GET("animal-breed")
     suspend fun getAnimalBreed(
@@ -77,4 +76,19 @@ interface ApiService {
        @Part("pregnent") pregnent: RequestBody,
        @Part("calfGender") calfGender: RequestBody,
     ): Response<ResponseBody>
+
+    @Multipart
+    @POST("post-community")
+    suspend fun createPost(
+        @Header("Authorization") token: String,
+        @Part image: List<MultipartBody.Part>,
+        @Part("text") text: RequestBody,
+        @Part("data_type") data_type: RequestBody
+    ): Response<ResponseBody>
+
+    @GET("your-animal")
+    suspend fun getYourAnimal(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("all-posts")
+    suspend fun getAllPost(@Header("Authorization") token: String): Response<ResponseBody>
 }

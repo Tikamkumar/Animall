@@ -8,8 +8,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.viewpager.widget.ViewPager
 import com.online.animall.R
 import com.online.animall.activity.TakeLocationActivity
+import com.online.animall.adapter.SlideImageAdapter
 import com.online.animall.data.local.UserPreferences
 import com.online.animall.databinding.ActivityNameBinding
 import com.online.animall.home.MainActivity
@@ -24,6 +26,7 @@ class NameActivity : AppCompatActivity() {
     private val userViewModel: UserViewModel by viewModels()
     private lateinit var userPreferences: UserPreferences
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,6 +37,8 @@ class NameActivity : AppCompatActivity() {
         loader = LoadingDialog(this)
 
         userPreferences = UserPreferences(this)
+
+
 
         binding.main.setOnClickListener {
           startActivity(Intent(this, TakeLocationActivity::class.java))

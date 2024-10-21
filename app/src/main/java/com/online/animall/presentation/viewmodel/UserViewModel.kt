@@ -51,8 +51,6 @@ class UserViewModel(): ViewModel() {
             } catch (e: Exception) {
                 callback.onError(e.message ?: "An error occurred")
             }
-            /*val response = repository.createUser(phoneNo)
-            _createUserResponse.value = response*/
         }
     }
 

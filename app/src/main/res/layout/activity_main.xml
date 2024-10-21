@@ -7,31 +7,45 @@
     android:orientation="vertical"
     tools:context=".home.MainActivity">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <include
+        android:id="@+id/no_internet"
+        layout="@layout/no_internet_layout"/>
 
-    <FrameLayout
-        android:id="@+id/container"
+    <LinearLayout
+        android:id="@+id/internet_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        />
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:itemIconSize="@dimen/_20sdp"
-        app:elevation="@dimen/_10sdp"
-        android:elevation="@dimen/_10sdp"
-        android:background="@color/white"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav_menu" />
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:itemIconSize="@dimen/_20sdp"
+            app:elevation="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            android:background="@color/white"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav_menu" />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

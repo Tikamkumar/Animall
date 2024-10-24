@@ -344,7 +344,7 @@
                 android:layout_marginTop="@dimen/_5sdp">
 
                 <Spinner
-                    android:id="@+id/is_animal_deliever"
+                    android:id="@+id/calf_deliever"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

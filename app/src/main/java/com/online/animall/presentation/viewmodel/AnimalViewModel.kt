@@ -9,9 +9,7 @@ import com.online.animall.data.model.SellAnimalResponse
 import com.online.animall.data.repository.AnimalRepository
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Response
 
 class AnimalViewModel: ViewModel() {
@@ -46,7 +44,6 @@ class AnimalViewModel: ViewModel() {
                 val response = repository.getAnimalCategory(token)
                 if (response.isSuccessful)
                     callback.onSuccess(response)
-//                    _getAnimalResponse.value = response
                 else
                     callback.onError(response.errorBody().toString())
 //                    _getAnimalResponse.value = null
@@ -55,6 +52,62 @@ class AnimalViewModel: ViewModel() {
 //                _getAnimalResponse.value = null
                 callback.onError(exp.toString())
                 Log.e("Error: ", exp.toString())
+            }
+        }
+    }
+
+    fun getLactation(token: String, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getLactation(token)
+                if (response.isSuccessful)
+                    callback.onSuccess(response)
+                else
+                    callback.onError(response.errorBody()!!.string())
+            } catch (exp: Exception) {
+                callback.onError(exp.toString())
+            }
+        }
+    }
+
+    fun getPregnantMonth(token: String, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getAnimalPregnant(token)
+                if (response.isSuccessful)
+                    callback.onSuccess(response)
+                else
+                    callback.onError(response.errorBody().toString())
+            } catch (exp: Exception) {
+                callback.onError(exp.toString())
+            }
+        }
+    }
+
+    fun getAnimalBaby(token: String, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getAnimalBaby(token)
+                if (response.isSuccessful)
+                    callback.onSuccess(response)
+                else
+                    callback.onError(response.errorBody()!!.string())
+            } catch (exp: Exception) {
+                callback.onError(exp.toString())
+            }
+        }
+    }
+
+    fun getAnimalCalf(token: String, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getAnimalCalf(token)
+                if (response.isSuccessful)
+                    callback.onSuccess(response)
+                else
+                    callback.onError(response.errorBody().toString())
+            } catch (exp: Exception) {
+                callback.onError(exp.toString())
             }
         }
     }
@@ -114,43 +167,6 @@ class AnimalViewModel: ViewModel() {
         }
     }
 
-    fun createPost(
-        token: String,
-        image: List<MultipartBody.Part>,
-        text: RequestBody,
-        data_type: RequestBody,
-        callback: ResponseCallback
-    ) {
-        viewModelScope.launch {
-            try {
-                val response = repository.createPost(token, image, text, data_type)
-
-                if (response.isSuccessful) {
-                    callback.onSuccess(response)
-                } else {
-                    val errorMsg =
-                        JSONObject(response.errorBody()!!.string())["errorMsg"].toString()
-                    callback.onError(errorMsg)
-                }
-            } catch (exp: Exception) {
-                callback.onError(exp.message.toString())
-            }
-        }
-    }
-
-    fun getAllPost(token: String, callback: ResponseCallback) {
-        viewModelScope.launch {
-            try {
-                val response = repository.getAllPost(token)
-                if (response.isSuccessful)
-                    callback.onSuccess(response)
-                else
-                    callback.onError(response.errorBody()!!.string())
-            } catch (exp: Exception) {
-                callback.onError(exp.message.toString())
-            }
-        }
-    }
 
 
 

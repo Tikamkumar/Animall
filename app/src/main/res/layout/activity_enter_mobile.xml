@@ -37,11 +37,11 @@
             android:layout_height="wrap_content"
             android:text="(गाय भैंस वाला ऐप)"
             android:textColor="@color/navy"
-            android:textSize="@dimen/_18ssp"/>
+            android:textSize="@dimen/_16ssp"/>
 
     <Space
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_30sdp"/>
+        android:layout_height="@dimen/_40sdp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
                 android:id="@+id/proceed_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:text="आगे बढे"
                 style="@style/SubmitBtnStyle"/>
 

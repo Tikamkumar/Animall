@@ -3,20 +3,25 @@ package com.online.animall.home
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.online.animall.R
 import com.online.animall.activity.NewPostActivity
 import com.online.animall.adapter.PostAdapter
 import com.online.animall.data.local.UserPreferences
 import com.online.animall.data.model.CommentModel
 import com.online.animall.data.model.PostModel
+import com.online.animall.data.model.likeModel
 import com.online.animall.databinding.FragmentAnimalCommBinding
+import com.online.animall.dialog.CommentDialog
 import com.online.animall.presentation.viewmodel.AnimalViewModel
+import com.online.animall.presentation.viewmodel.PostViewModel
 import com.online.animall.utils.SnackbarUtil
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -25,10 +30,11 @@ import retrofit2.Response
 class AnimalCommFragment : Fragment() {
 
     private lateinit var binding: FragmentAnimalCommBinding
-    private val viewModel: AnimalViewModel by viewModels()
+    private val viewModel: PostViewModel by viewModels()
     private lateinit var userPrefs: UserPreferences
     private var postList: MutableList<PostModel> = mutableListOf()
     private lateinit var postAdapter: PostAdapter
+    private lateinit var mainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,29 +44,36 @@ class AnimalCommFragment : Fragment() {
 
         userPrefs = UserPreferences(requireContext())
 
-        fetchData()
+        mainActivity = (activity as MainActivity)
+        setUpRecyclerView()
+
+        mainActivity.refreshLayout.setOnRefreshListener {
+            postList.clear()
+            postAdapter.updateList(postList)
+            fetchData()
+        }
         binding.createPost.setOnClickListener {
             startActivity(Intent(requireContext(), NewPostActivity::class.java))
         }
-        return binding.root
-    }
-
-    private fun fetchData() {
         try {
-            viewModel.getAllPost(userPrefs.getToken()!!, object: AnimalViewModel.ResponseCallback {
-                override fun onSuccess(response: Response<ResponseBody>) {
-                    Log.i("Response: ", response.body()!!.string())
-                    val allPost = JSONObject(response.body()!!.string()).getJSONArray("allposts")
-                    if(allPost.length() == 0) return
-                    for(item in 0 until allPost.length()) {
-                       val postData = allPost.getJSONObject(item)
-                        var likes: MutableList<String> = mutableListOf()
-                       if(postData.getJSONArray("likes").length() > 0) {
-                           for(index in 0 until postData.getJSONArray("likes").length()) {
-                               likes.add(postData.getJSONArray("likes")[index].toString())
-                           }
-                       }
+            viewModel._postResponse.observe(requireActivity()) { response ->
+                mainActivity.refreshLayout.isRefreshing = false
 
+                if(response!!.isSuccessful) {
+                    val postArray = JSONObject(response.body()!!.string()).getJSONArray("allposts")
+                    Log.i("post : ", postArray.length().toString())
+                    /*if(postArray.length() == 0) return*/
+                    for(item in 0 until postArray.length()) {
+                        val postData = postArray.getJSONObject(item)
+
+                        var likes: MutableList<String> = mutableListOf()
+                        if(postData.getJSONArray("likes").length() > 0) {
+                            for(index in 0 until postData.getJSONArray("likes").length()) {
+                                likes.add(
+                                    postData.getJSONArray("likes").getJSONObject(index)["userId"].toString()
+                                )
+                            }
+                        }
                         val comments: MutableList<CommentModel> = mutableListOf()
                         if(postData.getJSONArray("comments").length() > 0) {
                             for(i in 0 until postData.getJSONArray("comments").length()) {
@@ -72,33 +85,52 @@ class AnimalCommFragment : Fragment() {
                                 comments.add(comment)
                             }
                         }
-                       val post = PostModel(
-                           postData.getJSONObject("_id").toString(),
-                           postData.getJSONObject("userId").toString(),
-                           postData.getJSONObject("text").toString(),
-                           postData.getJSONObject("content").toString(),
-                           likes,
-                           comments,
-                           postData.getJSONObject("createdAt").toString(),
-                       )
+
+                        val post = PostModel(
+                            postData["_id"].toString(),
+                            postData.getJSONObject("userId")["_id"].toString(),
+                            postData.getJSONObject("userId")["name"].toString(),
+                            postData.getJSONObject("userId")["photo"].toString(),
+                            postData["text"].toString(),
+                            postData["content"].toString(),
+                            likes,
+                            comments,
+                            postData["createdAt"].toString(),
+                        )
+                        Log.i("postList : ", item.toString())
                         postList.add(post)
                     }
+
                     setUpRecyclerView()
+                } else {
+                    SnackbarUtil.error(binding.main)
                 }
-
-                override fun onError(error: String) {
-                    SnackbarUtil.error(binding.root, error)
-                }
-
-            })
+            }
         } catch (exp: Exception) {
-            SnackbarUtil.error(binding.root, exp.message.toString())
+            mainActivity.refreshLayout.isRefreshing = false
+        }
+
+        fetchData()
+
+        return binding.root
+    }
+
+    private fun fetchData() {
+        try {
+            viewModel.getAllPost(userPrefs.getToken()!!)
+        } catch (exp: Exception) {
+            mainActivity.refreshLayout.isRefreshing = false
         }
     }
 
     private fun setUpRecyclerView() {
-        postAdapter = PostAdapter(postList)
+        postAdapter = PostAdapter(postList, viewModel, userPrefs.getToken()!!, this)
         binding.recView.layoutManager = LinearLayoutManager(requireContext())
         binding.recView.adapter = postAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 }

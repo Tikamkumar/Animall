@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ic_close"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:src="@drawable/ic_cross" />
+
+        <TextView
+            android:id="@+id/title_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:gravity="center"
+            android:text="Comments"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12ssp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/top_divider"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/title_comment"
+            app:dividerColor="#4D4949"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/comment_box"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_below="@id/top_divider" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/comment_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:cardCornerRadius="@dimen/_22sdp"
+            app:cardElevation="@dimen/_2sdp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_6sdp">
+
+                <ImageView
+                    android:id="@+id/currentUserPic"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/_1sdp"
+                    android:src="@drawable/ic_profile" />
+
+                <EditText
+                    android:id="@+id/comment_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Write a comment.."
+                    android:inputType="text"
+                    android:padding="@dimen/_6sdp"
+                    android:singleLine="true"
+                    android:maxLines="3"
+                    android:textColorHint="#A79999"
+                    android:background="@color/white"
+                    android:focusableInTouchMode="true"
+                    android:textSize="@dimen/_13ssp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/post_comment"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:src="@drawable/ic_upload" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+</RelativeLayout>

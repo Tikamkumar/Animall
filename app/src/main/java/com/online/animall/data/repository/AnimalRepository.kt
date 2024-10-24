@@ -15,6 +15,22 @@ class AnimalRepository {
         return RetrofitClient.api.getAnimalCategory(token)
     }
 
+    suspend fun getLactation(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getLactation(token)
+    }
+
+    suspend fun getAnimalBaby(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getAnimalBaby(token)
+    }
+
+    suspend fun getAnimalCalf(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getAnimalCalf(token)
+    }
+
+    suspend fun getAnimalPregnant(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getAnimalPregnant(token)
+    }
+
     suspend fun getAnimalBreed(
         token: String,
         search: String?,
@@ -50,13 +66,5 @@ class AnimalRepository {
 
     suspend fun getYourAnimals(token: String): Response<ResponseBody> {
         return RetrofitClient.api.getYourAnimal(token)
-    }
-
-    suspend fun createPost(token: String, image: List<MultipartBody.Part>, text: RequestBody, data_type: RequestBody): Response<ResponseBody> {
-        return RetrofitClient.api.createPost(token, image, text, data_type)
-    }
-
-    suspend fun getAllPost(token: String): Response<ResponseBody> {
-        return RetrofitClient.api.getAllPost(token)
     }
 }

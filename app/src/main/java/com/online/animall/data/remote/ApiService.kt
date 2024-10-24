@@ -12,11 +12,15 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -46,7 +50,7 @@ interface ApiService {
     /*@POST("get-animal")
     suspend fun getAnimals(@Header("Authorization") token: String): Call<ResponseBody>*/
 
-    @GET("get-animal")
+    @GET("animal-category")
     suspend fun getAnimalCategory(@Header("Authorization") token: String): Response<ResponseBody>
 
     @GET("animal-breed")
@@ -55,6 +59,19 @@ interface ApiService {
       @Query("search") search: String?,
       @Query("animalId") animalId: String,
     ): Response<ResponseBody>
+
+    @GET("animal-lactation")
+    suspend fun getLactation(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("get-animal-baby")
+    suspend fun getAnimalBaby(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("get-animal-calf")
+    suspend fun getAnimalCalf(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("get-animal-pregnant")
+    suspend fun getAnimalPregnant(@Header("Authorization") token: String): Response<ResponseBody>
+
 
     @Multipart
     @POST("sell-animal")
@@ -91,4 +108,24 @@ interface ApiService {
 
     @GET("all-posts")
     suspend fun getAllPost(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("get-profile")
+    suspend fun getUserProfile(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("post-like/{postId}")
+    suspend fun postLike(@Header("Authorization") token: String, @Path("postId") postId: String): Response<ResponseBody>
+
+
+    @Multipart
+    @POST("post-comment/{postId}")
+    suspend fun postComment(@Header("Authorization") token: String, @Path("postId") postId: String, @Part("comment") comment: RequestBody): Response<ResponseBody>
+
+    @POST("comment-delete/{postId}/{commentId}")
+    suspend fun deleteComment(@Header("Authorization") token: String, @Path("commentId") commentId: String, @Path("postId") postId: String): Response<ResponseBody>
+
+    @GET("nearby-doctors")
+    suspend fun getNearDoctor(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("exprienced-doctors")
+    suspend fun getExperienceDoctor(@Header("Authorization") token: String): Response<ResponseBody>
 }

@@ -13,16 +13,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.online.animall.R
+import com.online.animall.data.local.UserPreferences
 import com.online.animall.data.model.CreateUserRequest
 import com.online.animall.data.model.CreateUserResponse
 import com.online.animall.data.remote.RetrofitClient
 import com.online.animall.databinding.ActivityEnterMobileBinding
 import com.online.animall.presentation.dialog.LoadingDialog
+import com.online.animall.presentation.viewmodel.AnimalViewModel
 import com.online.animall.presentation.viewmodel.UserViewModel
 import com.online.animall.utils.SnackbarUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
+import retrofit2.Response
 
 class EnterMobileActivity : AppCompatActivity() {
 
@@ -49,6 +56,25 @@ class EnterMobileActivity : AppCompatActivity() {
     }
 
     private fun signUp() {
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val response = RetrofitClient.api.getLactation(UserPreferences(applicationContext).getToken()!!)
+            if (response.isSuccessful) {
+                // Handle the successful response
+                val userResponse = response.body()
+                if (userResponse != null) {
+                    // Process userResponse
+                    Log.d("API Success", "Response: $userResponse")
+                    /*val intent = Intent(this@EnterMobileActivity, VerifyMobile::class.java)
+                    intent.putExtra("mobile", mobileNumber)
+                    startActivity(intent)*/
+                }
+            } else {
+                // Handle the error response
+                val errorBody = response.errorBody()?.string()
+                Log.e("API Error", "Code: ${response.code()}, Body: $errorBody")
+            }
+        }/*
         loadingDialog.show()
         val mobileNumber = binding.mobileNumber.text.toString()
         if(mobileNumber.isEmpty() || mobileNumber.length != 10) {
@@ -56,35 +82,7 @@ class EnterMobileActivity : AppCompatActivity() {
             loadingDialog.hide()
         } else {
             binding.validationMsg.visibility = View.GONE
-            /*CoroutineScope(Dispatchers.IO).launch {
-                val response = RetrofitClient.api.signUp(CreateUserRequest(mobileNumber))
-                if (response.isSuccessful) {
-                    // Handle the successful response
-                    val userResponse = response.body()
-                    if (userResponse != null) {
-                        // Process userResponse
-                        Log.d("API Success", "Response: $userResponse")
-                        val intent = Intent(this@EnterMobileActivity, VerifyMobile::class.java)
-                        intent.putExtra("mobile", mobileNumber)
-                        startActivity(intent)
-                    }
-                } else {
-                    // Handle the error response
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("API Error", "Code: ${response.code()}, Body: $errorBody")
-                }
-            }*/
             try {
-                /*userViewModel.createUserResponse.observe(this) { response ->
-                    loadingDialog.hide()
-                    if(response != null) {
-                        val intent = Intent(this, VerifyMobile::class.java)
-                        intent.putExtra("mobile", mobileNumber)
-                        startActivity(intent)
-                    } else {
-                        SnackbarUtil.error(binding.main)
-                    }
-                }*/
                 userViewModel.createUser(mobileNumber, object : UserViewModel.CreateUserCallback {
                     override fun onSuccess(response: CreateUserResponse) {
                         loadingDialog.hide()
@@ -101,7 +99,7 @@ class EnterMobileActivity : AppCompatActivity() {
                 SnackbarUtil.error(binding.main)
             }
         }
-    }
+    */}
 
     private var textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

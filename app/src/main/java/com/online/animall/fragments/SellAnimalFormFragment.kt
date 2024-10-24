@@ -1,15 +1,10 @@
 package com.online.animall.fragments
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
-import android.app.LocaleManager
-import android.content.ContentResolver
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,16 +15,12 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.gson.Gson
 import com.online.animall.LocaleHelper
 import com.online.animall.R
 import com.online.animall.adapter.ImgAdapter
@@ -41,16 +32,13 @@ import com.online.animall.home.MainActivity
 import com.online.animall.presentation.dialog.LoadingDialog
 import com.online.animall.presentation.viewmodel.AnimalViewModel
 import com.online.animall.utils.SnackbarUtil
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import org.json.JSONArray
 import org.json.JSONObject
-import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
@@ -63,7 +51,7 @@ class SellAnimalFormFragment : Fragment() {
     private val animalViewModel: AnimalViewModel by viewModels()
     private lateinit var userPref: UserPreferences
     private lateinit var animalName: MutableList<String>
-    private lateinit var animalData: JSONArray
+    private lateinit var animalCategory: JSONArray
     private lateinit var breedData: JSONArray
     private var selectedAnimal: String? = null
     private lateinit var breedList: MutableList<String>
@@ -72,8 +60,8 @@ class SellAnimalFormFragment : Fragment() {
     private var milkCapacity: String = ""
     private var price: String = ""
     private var info: String = ""
-    private lateinit var animalId: String
-    private lateinit var breedId: String
+    private var animalId: String = ""
+    private var breedId: String = ""
     private var selectLactation: String = ""
     private var animalBaby: String = ""
     private var pregnent: String = ""
@@ -81,6 +69,14 @@ class SellAnimalFormFragment : Fragment() {
     private var isNegotiable: Boolean = false
     private val viewModel: AnimalViewModel by viewModels()
     private lateinit var loader: LoadingDialog
+    private lateinit var mainActivity: MainActivity
+    private var langCode: String = "hi"
+    private var isPregnent: Boolean = false
+    private var isDelieverCalf: Boolean = false
+    private var lactationData: MutableList<Map<String, String>> = mutableListOf()
+    private var delieveryData: MutableList<Map<String, String>> = mutableListOf()
+    private var pregnantData: MutableList<Map<String, String>> = mutableListOf()
+    private var calfData: MutableList<Map<String, String>> = mutableListOf()
 
     @SuppressLint("ResourceType")
     override fun onCreateView(
@@ -95,16 +91,19 @@ class SellAnimalFormFragment : Fragment() {
         userPref = UserPreferences(requireContext())
         setUpImgRecView()
 
-        val activity = (activity as MainActivity)
-        fetchData(activity.refreshLayout)
+        mainActivity = (activity as MainActivity)
 
-        activity.refreshLayout.setOnRefreshListener {
+        getAnimalCategory()
+        getLactation()
+        getAnimalCalf()
+
+        mainActivity.refreshLayout.setOnRefreshListener {
             animalName.clear()
-            fetchData(activity.refreshLayout)
+            getAnimalCategory()
         }
 
         animalName = mutableListOf()
-        animalData = JSONArray()
+        animalCategory = JSONArray()
         breedList = mutableListOf(getString(R.string.select_breed))
         breedData = JSONArray()
         loader = LoadingDialog(requireContext())
@@ -122,15 +121,11 @@ class SellAnimalFormFragment : Fragment() {
 
         spinner(binding.selectBreed, breedList)
 
-        showSpinner(binding.selectLactation, resources.getStringArray(R.array.lactation_option))
         showSpinner(binding.isPregnent, resources.getStringArray(R.array.yes_no_option))
-        showSpinner(binding.pregnentTime, resources.getStringArray(R.array.pregnant_time))
-        showSpinner(binding.isCalfAvailable, resources.getStringArray(R.array.calf_option))
-        showSpinner(binding.isAnimalDeliever, resources.getStringArray(R.array.yes_no_option))
-        showSpinner(binding.delieveryTime, resources.getStringArray(R.array.time_duration))
+        showSpinner(binding.calfDeliever, resources.getStringArray(R.array.yes_no_option))
 
 
-        binding.isAnimalDeliever.onItemSelectedListener = object :
+        binding.calfDeliever.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -141,17 +136,20 @@ class SellAnimalFormFragment : Fragment() {
                 when (position) {
                     0 -> {
                         binding.delieveryTime.visibility = View.GONE
-                        animalBaby = ""
+                        isDelieverCalf = false
                     }
                     1 -> {
-                        animalBaby = binding.delieveryTime.selectedItem.toString()
+                        isDelieverCalf = true
                         binding.delieveryTime.visibility = View.VISIBLE
+                        getAnimalBaby()
                     }
                     else -> {
+                        isDelieverCalf = false
                         binding.delieveryTime.visibility = View.GONE
-                        animalBaby = "No"
+                        animalBaby = ""
                     }
                 }
+                Log.i("Animal Baby", animalBaby)
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -181,7 +179,7 @@ class SellAnimalFormFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        binding.isCalfAvailable.onItemSelectedListener = object :
+        binding.selectLactation.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -189,9 +187,10 @@ class SellAnimalFormFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                when(position) {
-                    0 -> calfGender = ""
-                    else -> calfGender = binding.isCalfAvailable.selectedItem.toString()
+                try {
+                    selectLactation = lactationData.map { it["id"] as String }[position]
+                } catch(exp: Exception) {
+                    Log.e("Error: ", exp.toString())
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -205,17 +204,19 @@ class SellAnimalFormFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
+                Log.i("Pregnant", pregnent)
                 when (position) {
                     0 -> {
-                        pregnent = ""
+                        isPregnent = false
                         binding.pregnentTime.visibility = View.GONE
                     }
                     1 -> {
-                        pregnent = binding.pregnentTime.selectedItem.toString()
+                        isPregnent = true
                         binding.pregnentTime.visibility = View.VISIBLE
+                        getPregmentMonth()
                     }
                     else -> {
-                        pregnent = "No"
+                        isPregnent = false
                         binding.pregnentTime.visibility = View.GONE
                     }
                 }
@@ -233,12 +234,11 @@ class SellAnimalFormFragment : Fragment() {
                 id: Long
             ) {
                 try {
-                    animalId = animalData.getJSONObject(position)["_id"].toString()
-                    animalGender = animalData.getJSONObject(position)["gender"].toString()
-                    Log.i("Gender :", animalGender)
-                    Toast.makeText(requireContext(), animalGender, Toast.LENGTH_SHORT).show()
+                    Log.i("Animal Id: ", animalId)
+                    animalId = animalCategory.getJSONObject(position)["_id"].toString()
+                    Log.i("Animal Id: ", animalId)
+                    animalGender = animalCategory.getJSONObject(position)["gender"].toString()
                     showOrHideGenderField(animalGender)
-                    Log.i("Data: ", animalId.toString())
                     breedList.clear()
                     breedData = JSONArray()
                     breedId = ""
@@ -253,7 +253,8 @@ class SellAnimalFormFragment : Fragment() {
     }
 
     private fun checkValidation() {
-        selectLactation = binding.selectLactation.selectedItem.toString()
+        pregnent = if(isPregnent) pregnent else ""
+        animalBaby = if(isDelieverCalf) animalBaby else ""
         currentMilk = binding.currentMilk.text.toString()
         milkCapacity = binding.milkCapacity.text.toString()
         price = binding.price.text.toString()
@@ -323,8 +324,8 @@ class SellAnimalFormFragment : Fragment() {
         val adapter = SingleChoiceAdapter(requireContext(), animalName, dialog) { selected ->
             selectedAnimal = animalName[selected]
 //            binding.selectAnimal.setText(selectedAnimal)
-            val animalId: String = animalData.getJSONObject(selected)["_id"].toString()
-            animalGender = animalData.getJSONObject(selected)["gender"].toString()
+            val animalId: String = animalCategory.getJSONObject(selected)["_id"].toString()
+            animalGender = animalCategory.getJSONObject(selected)["gender"].toString()
             Log.i("Gender :", animalGender)
             showOrHideGenderField(animalGender)
             Log.i("Data: ", animalId.toString())
@@ -357,12 +358,15 @@ class SellAnimalFormFragment : Fragment() {
             object : AnimalViewModel.GetAnimalBreedCallback {
                 override fun onSuccess(response: Response<ResponseBody>) {
                     if (response != null) {
-                        val data = JSONObject(response.body()!!.string())
-                        val animalData = data.getJSONArray("data")
-                        breedData = animalData
-                        Log.i("Data : ", animalData.toString())
-                        for (animal in 0 until animalData.length()) {
-                            breedList.add(animalData.getJSONObject(animal)["name"].toString())
+                        breedData = JSONObject(response.body()!!.string()).getJSONArray("data")
+                        Log.i("Breed Data: ", breedData.toString())
+                        for (animal in 0 .. breedData.length() - 1) {
+                            val lang = breedData.getJSONObject(animal).getJSONArray("lang")
+                            for(i in 0 .. lang.length() -1) {
+                                if(langCode == lang.getJSONObject(i)["langCode"]) {
+                                    breedList.add(lang.getJSONObject(i)["name"].toString())
+                                }
+                            }
                         }
                         spinner(binding.selectBreed, breedList)
                     }
@@ -495,17 +499,14 @@ class SellAnimalFormFragment : Fragment() {
         imgAdapter.updateList(fetchImgs)
     }
 
-    private fun fetchData(refreshLayout: SwipeRefreshLayout) {
+    private fun getAnimalCategory() {
         animalViewModel.getAnimalCategory(userPref.getToken()!!, object: AnimalViewModel.GetAnimalCallback {
             override fun onSuccess(response: Response<ResponseBody>) {
-                refreshLayout.isRefreshing = false
-//                (activity).refreshLayout.isRefreshing = false
-                val body = JSONObject(response.body()!!.string())
-                val data = body.getJSONArray("data")
-                Log.i("Response: ", data.toString())
-
-                for(item in 0 until data.length()) {
-                    val lang = data.getJSONObject(item).getJSONArray("lang")
+                mainActivity.refreshLayout.isRefreshing = false
+                animalCategory = JSONObject(response.body()!!.string()).getJSONArray("data")
+                Log.i("Response: ", animalCategory.toString())
+                for(item in 0 until animalCategory.length()) {
+                    val lang = animalCategory.getJSONObject(item).getJSONArray("lang")
                     for(i in 0 until lang.length()) {
                        val userLang = LocaleHelper.getLocaleCode(requireActivity())
                         val code = lang.getJSONObject(i)["langCode"].toString()
@@ -514,33 +515,197 @@ class SellAnimalFormFragment : Fragment() {
                         }
                     }
                 }
-
-               /* for(item in 0 until lang.length()) {
-                    val langCode = lang.getJSONObject(0)["langCode"]
-                    if(langCode == LocaleHelper.getLocale(requireActivity())) {
-                        animalName.add(lang.getJSONObject(0)["name"].toString())
-                    }
-                }
-                animalData = data.getJSONArray("data")
-                *//*for (animal in 0 until animalData.length()) {
-                    animalName.add(animalData.getJSONObject(animal)["name"].toString())
-                }*//*
-                */
-                val adapter: ArrayAdapter<String> =
-                    ArrayAdapter<String>(
-                        requireContext(),
-                        android.R.layout.simple_spinner_dropdown_item,
-                        animalName
-                    )
-                binding.selectAnimal.adapter = adapter
+                showDropdown(binding.selectAnimal, animalName)
             }
-
             override fun onError(error: String) {
-                refreshLayout.isRefreshing = false
+                mainActivity.refreshLayout.isRefreshing = false
                 Log.e("Error: ", error.toString())
             }
-
         })
+    }
+
+    private fun getLactation() {
+        animalViewModel.getLactation(userPref.getToken()!!, object: AnimalViewModel.ResponseCallback {
+            override fun onSuccess(response: Response<ResponseBody>) {
+                mainActivity.refreshLayout.isRefreshing = false
+                val res = JSONObject(response.body()!!.string()).getJSONArray("data")
+                Log.i("Response : ", res.length().toString())
+                for(i in 0..res.length()-1) {
+                    val lang = res.getJSONObject(i).getJSONArray("lang")
+                    for(j in 0..lang.length()-1) {
+                        val userLang = LocaleHelper.getLocaleCode(requireActivity())
+                        val code = lang.getJSONObject(j)["langCode"].toString()
+                        if(userLang == code) {
+                            lactationData.add(
+                                mapOf(
+                                    "name" to lang.getJSONObject(j)["name"].toString(),
+                                    "id" to res.getJSONObject(i)["_id"].toString()
+                                )
+                            )
+                        }
+                    }
+                }
+                showDropdown(binding.selectLactation, lactationData.map { it["name"] as String }.toMutableList())
+            }
+            override fun onError(error: String) {
+                mainActivity.refreshLayout.isRefreshing = false
+                Log.e("Error: ", error.toString())
+            }
+        })
+    }
+
+    private fun getAnimalBaby() {
+        delieveryData = mutableListOf()
+        animalViewModel.getAnimalBaby(userPref.getToken()!!, object: AnimalViewModel.ResponseCallback {
+            override fun onSuccess(response: Response<ResponseBody>) {
+                mainActivity.refreshLayout.isRefreshing = false
+                val res = JSONObject(response.body()!!.string()).getJSONArray("data")
+                Log.i("Response : ", res.length().toString())
+                for(i in 0..res.length()-1) {
+                    val lang = res.getJSONObject(i).getJSONArray("lang")
+                    for(j in 0..lang.length()-1) {
+                        val userLang = LocaleHelper.getLocaleCode(requireActivity())
+                        val code = lang.getJSONObject(j)["langCode"].toString()
+                        if(userLang == code) {
+                            delieveryData.add(
+                                mapOf(
+                                    "name" to lang.getJSONObject(j)["name"].toString(),
+                                    "id" to res.getJSONObject(i)["_id"].toString()
+                                )
+                            )
+                        }
+                    }
+                }
+                showDropdown(binding.delieveryTime, delieveryData.map { it["name"] as String }.toMutableList())
+            }
+            override fun onError(error: String) {
+                mainActivity.refreshLayout.isRefreshing = false
+                Log.e("Error: ", error.toString())
+            }
+        })
+        binding.delieveryTime.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                try {
+                    animalBaby = delieveryData.map { it["id"] as String }[position]
+                } catch(exp: Exception) {
+                    Log.e("Error: ", exp.toString())
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun getAnimalCalf() {
+        animalViewModel.getAnimalCalf(userPref.getToken()!!, object: AnimalViewModel.ResponseCallback {
+            override fun onSuccess(response: Response<ResponseBody>) {
+                mainActivity.refreshLayout.isRefreshing = false
+                val res = JSONObject(response.body()!!.string()).getJSONArray("data")
+                for(i in 0..res.length()-1) {
+                    val lang = res.getJSONObject(i).getJSONArray("lang")
+                     Log.i("Calf Response: ", res.getJSONObject(i).getJSONArray("lang").toString())
+                    for(j in 0..lang.length()-1) {
+                        Log.i("loop", "i = $i, j = $j")
+                        val userLang = LocaleHelper.getLocaleCode(requireActivity())
+                        val code = lang.getJSONObject(j)["langCode"].toString()
+                        Log.i("Code", "$code")
+                        if(userLang == code) {
+                            calfData.add(
+                                mapOf(
+                                    "name" to lang.getJSONObject(j)["name"].toString(),
+                                    "id" to res.getJSONObject(i)["_id"].toString()
+                                )
+                            )
+                        }
+                    }
+                }
+                Toast.makeText(requireContext(), "Loop closed: ${calfData}", Toast.LENGTH_SHORT).show()
+                showDropdown(binding.isCalfAvailable, calfData.map { it["name"] as String }.toMutableList())
+            }
+            override fun onError(error: String) {
+                mainActivity.refreshLayout.isRefreshing = false
+                Log.e("Calf Error: ", error.toString())
+            }
+        })
+        binding.isCalfAvailable.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                try {
+                    calfGender = calfData.map { it["id"] as String }[position]
+                } catch(exp: Exception) {
+                    Log.e("Error: ", exp.toString())
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun getPregmentMonth() {
+        pregnantData = mutableListOf()
+        animalViewModel.getPregnantMonth(userPref.getToken()!!, object: AnimalViewModel.ResponseCallback {
+            override fun onSuccess(response: Response<ResponseBody>) {
+                mainActivity.refreshLayout.isRefreshing = false
+                val res = JSONObject(response.body()!!.string()).getJSONArray("data")
+                Log.i("Response : ", res.length().toString())
+                for(i in 0..res.length()-1) {
+                    val lang = res.getJSONObject(i).getJSONArray("lang")
+                    for(j in 0..lang.length()-1) {
+                        val userLang = LocaleHelper.getLocaleCode(requireActivity())
+                        val code = lang.getJSONObject(j)["langCode"].toString()
+                        if(userLang == code) {
+                            pregnantData.add(
+                                mapOf(
+                                    "name" to lang.getJSONObject(j)["name"].toString(),
+                                    "id" to res.getJSONObject(i)["_id"].toString()
+                                )
+                            )
+                        }
+                    }
+                }
+                showDropdown(binding.pregnentTime, pregnantData.map { it["name"] as String }.toMutableList())
+            }
+            override fun onError(error: String) {
+                mainActivity.refreshLayout.isRefreshing = false
+                Log.e("Error: ", error.toString())
+            }
+        })
+        binding.pregnentTime.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                try {
+                    pregnent = pregnantData.map { it["id"] as String }[position]
+                    Log.i("Pregnent: ", pregnent)
+                } catch(exp: Exception) {
+                    Log.e("Error: ", exp.toString())
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun showDropdown(spinner: Spinner, list: MutableList<String>) {
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                list
+            )
+        spinner.adapter = adapter
     }
 
 }

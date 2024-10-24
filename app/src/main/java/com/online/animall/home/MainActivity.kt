@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var bottomNav: BottomNavigationView
     var selectedTab: String? = null
     lateinit var refreshLayout: SwipeRefreshLayout
+    lateinit var root: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         internetChecker()
+
+        root = binding.main
         bottomNav = binding.bottomNav
         refreshLayout = binding.refreshLayout
 

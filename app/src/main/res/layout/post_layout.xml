@@ -9,16 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:background="@color/white"
         android:gravity="center_vertical"
-        android:padding="@dimen/_8sdp">
+        android:paddingVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_10sdp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ic_profile"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/ic_me"
+            android:src="@drawable/ic_profile"
             app:shapeAppearanceOverlay="@style/CircularShape" />
 
         <LinearLayout
@@ -35,12 +36,13 @@
                 android:text="Govind Pal"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"/>
+                android:textSize="@dimen/_13ssp"/>
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
                 android:text="2 अक्टूबर 2024 को दोपहर 12:23 बजे"
                 android:textColor="#767E8D"/>
 
@@ -86,7 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_12ssp"
-            android:padding="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            android:paddingStart="@dimen/_10sdp"
             android:background="@color/white"
             android:textColor="@color/black"
             android:text="My cow is not good. give some advice"/>
@@ -99,14 +102,84 @@
             android:src="@drawable/cow"/>
 
     </LinearLayout>
+    <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:paddingHorizontal="@dimen/_15sdp"
+           android:paddingTop="@dimen/_8sdp"
+           android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/like_btn"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:padding="@dimen/_3sdp"
+            android:src="@drawable/ic_dislike"/>
+
+        <ImageView
+            android:id="@+id/comment_btn"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:padding="@dimen/_3sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:src="@drawable/ic_comment"/>
+
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:padding="@dimen/_3sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:src="@drawable/ic_share"/>
+
+       </LinearLayout>
+
+      <TextView
+          android:id="@+id/like"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="512 likes"
+          android:paddingStart="@dimen/_17sdp"
+          android:background="@color/white"
+          android:textSize="@dimen/_11ssp"
+          android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/white"
         android:gravity="center_vertical"
-        android:padding="@dimen/_8sdp">
+        android:paddingVertical="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_10sdp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/current_user_pic"
+            android:layout_width="27dp"
+            android:layout_height="31dp"
+            android:src="@drawable/ic_profile"
+            app:shapeAppearanceOverlay="@style/CircularShape" />
+
+        <TextView
+            android:id="@+id/add_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:textColor="#12BBA4"
+            android:textSize="@dimen/_12ssp"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="Add a comment..." />
+
+    </LinearLayout>
+
+
+
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_5sdp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -116,12 +189,13 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/like_btn"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                app:tint="#6B6B6B"
-                android:src="@drawable/like"/>
+                android:src="@drawable/ic_dislike"/>
 
             <TextView
+                android:id="@+id/like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20 like"/>
@@ -134,12 +208,14 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/comment_btn"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
                 app:tint="#6B6B6B"
                 android:src="@drawable/comment"/>
 
             <TextView
+                android:id="@+id/comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5 Comment"/>
@@ -152,6 +228,7 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/share_btn"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
                 app:tint="#6B6B6B"
@@ -163,6 +240,6 @@
                 android:text="Share"/>
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

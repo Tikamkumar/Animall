@@ -20,6 +20,7 @@ import com.online.animall.R
 import com.online.animall.data.local.UserPreferences
 import com.online.animall.databinding.ActivityNewPostBinding
 import com.online.animall.presentation.viewmodel.AnimalViewModel
+import com.online.animall.presentation.viewmodel.PostViewModel
 import com.online.animall.utils.SnackbarUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -35,7 +36,7 @@ class NewPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewPostBinding
     private lateinit var fetchImgs: MutableList<Uri>
     private lateinit var text: String
-    private val viewModel: AnimalViewModel by viewModels()
+    private val viewModel: PostViewModel by viewModels()
     private lateinit var userPrefs: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {

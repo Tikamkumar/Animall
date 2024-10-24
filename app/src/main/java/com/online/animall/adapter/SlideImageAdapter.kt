@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.viewpager.widget.PagerAdapter
+import com.online.animall.utils.ConstUtil
 import com.squareup.picasso.Picasso
 import java.util.Objects
 
@@ -69,7 +70,7 @@ class SlideImageAdapter(
 
     private fun loadImage(img: String, view: ImageView) {
         Picasso.get()
-            .load("http://192.168.1.7:5001/uploads/$img")
+            .load("http://192.168.1.12:5001/$img")
             /*.placeholder(R.drawable.user_placeholder)
             .error(R.drawable.user_placeholder_error)*/
             .into(view);

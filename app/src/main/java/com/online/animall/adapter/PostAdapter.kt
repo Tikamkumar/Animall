@@ -61,7 +61,7 @@ class PostAdapter(private var posts: MutableList<PostModel>, private val viewMod
             if(post.text == "") holder.imgTitle.visibility = View.GONE
             holder.imgTitle.text = post.text
             Picasso.get()
-                .load("http://192.168.1.12:5001/uploads/${post.content}")
+                .load("http://192.168.1.9:5001/uploads/${post.content}")
                 /*.placeholder(R.drawable.user_placeholder)
                 .error(R.drawable.user_placeholder_error)*/
                 .into(holder.img);
@@ -82,7 +82,7 @@ class PostAdapter(private var posts: MutableList<PostModel>, private val viewMod
         }
         if(post.userPic != "") {
             Picasso.get()
-                .load("${ConstUtil.BASE_URL}/uploads/${post.userPic}")
+                .load("http://192.168.1.9:5001/uploads/${post.userPic}")
                 /*.placeholder(R.drawable.user_placeholder)
                 .error(R.drawable.user_placeholder_error)*/
                 .into(holder.img);

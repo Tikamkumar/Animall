@@ -7,10 +7,24 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_20sdp"
     tools:context=".signup.EnterMobileActivity">
 
-        <LinearLayout
+    <ImageView
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/img_welcome" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_mobile_no"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold" />
+
+        <!--<LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -38,31 +52,25 @@
             android:text="(गाय भैंस वाला ऐप)"
             android:textColor="@color/navy"
             android:textSize="@dimen/_16ssp"/>
-
-    <Space
+-->
+       <!--<Space
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_40sdp"/>
+        android:layout_height="@dimen/_40sdp"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="मोबाइल नंबर डाले"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_18ssp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxStrokeColor="#12746D"
-                android:layout_marginTop="@dimen/_15sdp">
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_30sdp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:id="@+id/mobile_number"
-                    android:hint="यहां नंबर डाले"
+                    android:hint="@string/enter_here"
                     android:layout_margin="0dp"
                     android:textSize="@dimen/_12ssp"
                     android:textColorHint="#A7A1A8"
@@ -75,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 android:textColor="#CD0000"
                 android:visibility="gone"
                 tools:visibility="visible"
@@ -83,9 +92,10 @@
             <Button
                 android:id="@+id/proceed_btn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="आगे बढे"
+                android:text="@string/proceed"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 style="@style/SubmitBtnStyle"/>
 
             <TextView
@@ -94,6 +104,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="#4D474E"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 android:text="@string/term_and_condition"/>
 
 </LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_110sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardUseCompatPadding="true"
+    android:layout_marginHorizontal="@dimen/_5sdp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/animal_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            app:strokeColor="@color/black"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            app:srcCompat="@drawable/buffalo" />
+
+        <TextView
+            android:id="@+id/milk_capacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:text="12 L Milk Capacity"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_2sdp"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

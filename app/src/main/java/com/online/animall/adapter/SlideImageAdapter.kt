@@ -70,7 +70,7 @@ class SlideImageAdapter(
 
     private fun loadImage(img: String, view: ImageView) {
         Picasso.get()
-            .load("http://192.168.1.12:5001/$img")
+            .load("http://192.168.1.9:5001/uploads/$img")
             /*.placeholder(R.drawable.user_placeholder)
             .error(R.drawable.user_placeholder_error)*/
             .into(view);

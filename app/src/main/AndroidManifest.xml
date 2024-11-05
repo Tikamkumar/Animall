@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
@@ -22,50 +23,67 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Animall"
         tools:targetApi="33">
-        <activity
-            android:name=".activity.NewPostActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.TakeLocationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.AnimalForYouActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.YourAnimalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.AddCoinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.WalletActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.EditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".signup.NameActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Animall" />
-        <activity
-            android:name=".signup.VerifyMobile"
-            android:exported="false" />
-        <activity
-            android:name=".signup.EnterMobileActivity"
-            android:exported="true">
 
-        </activity>
         <activity
-            android:name=".home.MainActivity"
-            android:exported="true">
+            android:name=".signup.WelcomeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.NewPostActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.TakeLocationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.AnimalForYouActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.YourAnimalActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.AddCoinActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.WalletActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".signup.NameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".signup.VerifyMobile"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.EnterMobileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".home.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -55,8 +55,20 @@
     <string name="animal_treatment">पशु उपचार</string>
     <string name="profile">प्रोफ़ाइल</string>
     <string name="share">शेयर करें</string>
-    <string name="delete">खाता हटाएं</string>
+    <string name="delete_account">खाता हटाएं</string>
     <string name="logout">लॉग आउट करें</string>
+    <string name="year_experience">years experience</string>
+    <string name="enter_mobile_no">मोबाइल नंबर डाले</string>
+    <string name="enter_here">यहां दर्ज करें..</string>
+    <string name="mobile_invalid_msg">जिस नंबर से कॉल करते हैं डाले 👆</string>
+    <string name="proceed">आगे बढे</string>
+    <string name="enter_otp">ओटीपी दर्ज करें</string>
+    <string name="otp_sent_to"> नंबर पर ओटीपी भेजा गया</string>
+    <string name="change_no">मोबाइल नंबर बदलें</string>
+    <string name="resend_otp">ओटीपी पुनः भेजें</string>
+    <string name="enter_your_name">अपना नाम डाले</string>
+
+    <string name="delete">हटाए</string>
 
     <string name="your_animal">आपके पशु</string>
     <string name="no_animal">कोई पशु नहीं है|</string>
@@ -73,7 +85,7 @@
     <string name="within_price">कितनी कीमत के अंदर ? *</string>
     <string name="mandatory_location">पास के पशु देखने के लिए जगह की जानकारी जरूरी है</string>
     <string name="location_permission_title">पास के पशु देखे! आपकी जगह देखने की अनुमति दे</string>
-    <string name="give_location">एनिमल की लोकेशन दे</string>
+    <string name="give_location">एनिमल को लोकेशन दे</string>
     <string name="name">नाम</string>
     <string name="address">पता</string>
     <string name="whatsapp_no">व्हाट्सएप नं.</string>
@@ -89,8 +101,7 @@
     <string name="write_your_post">अपना पोस्ट लिखें</string>
     <string name="new_post">नया पोस्ट</string>
     <string name="select_image_jpg_png">फ़ोटो चुनें (jpg, png)</string>
-
-
+    <string name="see_wallet">वॉलेट देखें</string>
 
     <string-array name="lactation_option">
         <item>कोई स्तनपान नहीं (0)</item>

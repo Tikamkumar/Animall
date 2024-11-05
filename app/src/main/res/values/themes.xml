@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Animall" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/navy</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.Animall" parent="Base.Theme.Animall" />
@@ -26,6 +27,11 @@
     <style name="SubmitBtnStyle">
         <item name="backgroundTint">@color/navy</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5%</item>
     </style>
     
 </resources>

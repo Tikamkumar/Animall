@@ -50,7 +50,7 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:textSize="@dimen/_14ssp"
                     android:drawableLeft="@android:drawable/stat_sys_phone_call"
-                    android:backgroundTint="@color/primary"
+                    android:backgroundTint="@color/navy"
                     android:scaleType="centerCrop"/>
 
             </LinearLayout>

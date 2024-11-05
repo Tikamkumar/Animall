@@ -1,15 +1,19 @@
 package com.online.animall.presentation.viewmodel
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.common.api.Response
 import com.online.animall.data.model.CreateUserRequest
 import com.online.animall.data.model.CreateUserResponse
 import com.online.animall.data.model.OtpResponse
+import com.online.animall.data.model.UpdateProfile
 import com.online.animall.data.repository.UserRepository
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 
 class UserViewModel(): ViewModel() {
     private val repository =  UserRepository()
@@ -30,6 +34,11 @@ class UserViewModel(): ViewModel() {
     }
 
     interface ResponseCallback {
+        fun onSuccess(response: retrofit2.Response<ResponseBody>)
+        fun onError(error: String)
+    }
+
+    interface BooleanCallback {
         fun onSuccess(response: Boolean)
         fun onError(error: String)
     }
@@ -80,7 +89,78 @@ class UserViewModel(): ViewModel() {
         }
     }
 
-    fun regName(name: String, token: String, callBack: ResponseCallback) {
+    fun getUserProfile(token: String, callBack: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val res = repository.getUserProfile(token)
+                callBack.onSuccess(res)
+            } catch(e: Exception) {
+                callBack.onError(e.message.toString())
+            }
+        }
+    }
+
+    fun getUserWorklist(token: String, callBack: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val res = repository.getUserWorklist(token)
+                callBack.onSuccess(res)
+            } catch(e: Exception) {
+                callBack.onError(e.message.toString())
+            }
+        }
+    }
+
+    fun getReasonOfUsingApp(token: String, callBack: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val res = repository.getReasonOfUsingApp(token)
+                callBack.onSuccess(res)
+            } catch(e: Exception) {
+                callBack.onError(e.message.toString())
+            }
+        }
+    }
+
+    fun getEducationLevels(token: String, callBack: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val res = repository.getEducationLevels(token)
+                callBack.onSuccess(res)
+            } catch(e: Exception) {
+                callBack.onError(e.message.toString())
+            }
+        }
+    }
+
+    fun getAnimalHusbandry(token: String, callBack: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val res = repository.getAnimalHusbandry(token)
+                callBack.onSuccess(res)
+            } catch(e: Exception) {
+                callBack.onError(e.message.toString())
+            }
+        }
+    }
+
+    fun updateProfile(token: String, model: UpdateProfile, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val res = repository.updateProfile(token, model)
+                Log.i("Response : ", res.code().toString())
+                if(res.isSuccessful)
+                    callback.onSuccess(res)
+                else
+                    callback.onError(res.errorBody()!!.string())
+            } catch (exp: Exception) {
+                callback.onError(exp.message.toString())
+                Log.i("Error : ", exp.toString())
+            }
+        }
+    }
+
+    fun regName(name: String, token: String, callBack: BooleanCallback) {
         viewModelScope.launch {
             try {
                 val res = repository.regName(name, token)

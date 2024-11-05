@@ -464,9 +464,9 @@
         <Button
             android:id="@+id/sub_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginVertical="@dimen/_25sdp"
-            android:background="@drawable/custom_btn_bg"
+            android:backgroundTint="@color/navy"
             android:text="@string/submit_animal"
             android:textSize="@dimen/_13ssp" />
 

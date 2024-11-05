@@ -45,16 +45,17 @@ class AnimalCommFragment : Fragment() {
         userPrefs = UserPreferences(requireContext())
 
         mainActivity = (activity as MainActivity)
-        setUpRecyclerView()
+//        setUpRecyclerView()
 
         mainActivity.refreshLayout.setOnRefreshListener {
             postList.clear()
-            postAdapter.updateList(postList)
             fetchData()
         }
+
         binding.createPost.setOnClickListener {
             startActivity(Intent(requireContext(), NewPostActivity::class.java))
         }
+
         try {
             viewModel._postResponse.observe(requireActivity()) { response ->
                 mainActivity.refreshLayout.isRefreshing = false

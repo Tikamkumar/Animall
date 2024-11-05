@@ -1,60 +1,151 @@
 package com.online.animall.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.online.animall.R
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.online.animall.LocaleHelper
+import com.online.animall.adapter.BuyAnimalAdapter
+import com.online.animall.data.local.UserPreferences
+import com.online.animall.data.model.BuyAnimalModel
+import com.online.animall.databinding.FragmentBuyPrimeAnimalBinding
+import com.online.animall.home.MainActivity
+import com.online.animall.presentation.viewmodel.AnimalViewModel
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [BuyPrimeAnimalFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BuyPrimeAnimalFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var itemList: MutableList<BuyAnimalModel>
+    private lateinit var imgList: MutableList<String>
+    private lateinit var adapter: BuyAnimalAdapter
+    private lateinit var binding: FragmentBuyPrimeAnimalBinding
+    private lateinit var userPrefs: UserPreferences
+    private lateinit var animal: String
+    private lateinit var breed: String
+    private var lactation: String? = null
+    private var pregnent: String? = null
+    private var calfGender: String? = null
+    private var animalBaby: String? = null
+    private var moreInfo: String? = null
+    private var currentMilk: String? = null
+    private var milkCapacity: String? = null
+    private val viewModel: AnimalViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buy_prime_animal, container, false)
+        binding = FragmentBuyPrimeAnimalBinding.bind(inflater.inflate(com.online.animall.R.layout.fragment_buy_all_animal, container, false))
+        userPrefs = UserPreferences(requireContext())
+        val activity = (activity as MainActivity)
+        fetchData(activity.refreshLayout)
+        activity.refreshLayout.setOnRefreshListener {
+            fetchData(activity.refreshLayout)
+        }
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BuyPrimeAnimalFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BuyPrimeAnimalFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun fetchData(refreshLayout: SwipeRefreshLayout) {
+        itemList = mutableListOf()
+        imgList = mutableListOf()
+        try {
+            viewModel.getAllAnimal(userPrefs.getToken()!!, object: AnimalViewModel.ResponseCallback {
+                override fun onSuccess(response: Response<ResponseBody>) {
+                    refreshLayout.isRefreshing = false
+                    val data = JSONObject(response.body()!!.string())
+
+                    val list = data.getJSONArray("data")
+                    for(i in 0 until list.length()) {
+                        val item = list.getJSONObject(i)
+                        val files = item.getJSONArray("files")
+                        for(j in 0 until files.length()) {
+                            imgList.add(files.getJSONObject(j)["path"].toString())
+                        }
+                        for(k in 0 until item.getJSONObject("animalId").getJSONArray("lang").length()) {
+                            if(LocaleHelper.getLocaleCode(requireActivity()) == item.getJSONObject("animalId").getJSONArray("lang").getJSONObject(k)["langCode"].toString())
+                                animal = item.getJSONObject("animalId").getJSONArray("lang").getJSONObject(k)["name"].toString()
+                        }
+                        Log.i("animal : ", animal)
+                        for(k in 0 until item.getJSONObject("breedId").getJSONArray("lang").length()) {
+//                            if(LocaleHelper.getLocaleCode(requireActivity()) == item.getJSONObject("breedId").getJSONArray("lang").getJSONObject(k)["langCode"].toString())
+                            breed = item.getJSONObject("breedId").getJSONArray("lang").getJSONObject(k)["name"].toString()
+                        }
+                        Log.i("breed : ", breed)
+                        if(item.has("lactationId"))
+                            for(k in 0 until item.getJSONObject("lactationId").getJSONArray("lang").length()) {
+                                if(LocaleHelper.getLocaleCode(requireActivity()) == item.getJSONObject("lactationId").getJSONArray("lang").getJSONObject(k)["langCode"].toString())
+                                    lactation = item.getJSONObject("lactationId").getJSONArray("lang").getJSONObject(k)["name"].toString()
+                            }
+//                        Log.i("lactation : ", lactation!!)
+                        if(item.has("optionalData"))  {
+                            if(item.getJSONObject("optionalData").has("pregnentId"))
+                                for(k in 0 until item.getJSONObject("optionalData").getJSONObject("pregnentId").getJSONArray("lang").length()) {
+                                    if(LocaleHelper.getLocaleCode(requireActivity()) == item.getJSONObject("optionalData").getJSONObject("pregnentId").getJSONArray("lang").getJSONObject(k)["langCode"].toString())
+                                        pregnent = item.getJSONObject("optionalData").getJSONObject("pregnentId").getJSONArray("lang").getJSONObject(k)["name"].toString()
+                                }
+                            if(item.getJSONObject("optionalData").has("animalBabyId"))
+                                for(k in 0 until item.getJSONObject("optionalData").getJSONObject("animalBabyId").getJSONArray("lang").length()) {
+                                    if(LocaleHelper.getLocaleCode(requireActivity()) == item.getJSONObject("optionalData").getJSONObject("animalBabyId").getJSONArray("lang").getJSONObject(k)["langCode"].toString())
+                                        animalBaby = item.getJSONObject("optionalData").getJSONObject("animalBabyId").getJSONArray("lang").getJSONObject(k)["name"].toString()
+                                }
+                            if(item.getJSONObject("optionalData").has("calfGenderId"))
+                                for(k in 0 until item.getJSONObject("optionalData").getJSONObject("calfGenderId").getJSONArray("lang").length()) {
+                                    if(LocaleHelper.getLocaleCode(requireActivity()) == item.getJSONObject("optionalData").getJSONObject("calfGenderId").getJSONArray("lang").getJSONObject(k)["langCode"].toString())
+                                        calfGender = item.getJSONObject("optionalData").getJSONObject("calfGenderId").getJSONArray("lang").getJSONObject(k)["name"].toString()
+                                }
+                            if(item.getJSONObject("optionalData").has("info"))
+                                moreInfo = item.getJSONObject("optionalData")["info"].toString()
+                        }
+                        if(item.has("currentMilk"))
+                            currentMilk = item["currentMilk"].toString()
+                        if(item.has("milkCapacity"))
+                            milkCapacity = item["milkCapacity"].toString()
+
+                        itemList.add(
+                            BuyAnimalModel(
+                                item["_id"].toString(),
+                                item.getJSONObject("userId")["name"].toString(),
+                                item.getJSONObject("userId")["photo"].toString(),
+                                item.getJSONObject("userId")["phone"].toString(),
+                                animal,
+                                breed,
+                                lactation,
+                                currentMilk,
+                                milkCapacity,
+                                item["price"].toString(),
+                                item["isNegotiable"].toString(),
+                                imgList,
+                                animalBaby,
+                                pregnent,
+                                calfGender,
+                                moreInfo,
+                                item["createdAt"].toString()
+                            )
+                        )
+                    }
+                    adapter = BuyAnimalAdapter(requireContext(), itemList, true)
+                    binding.recView.layoutManager = LinearLayoutManager(requireContext())
+                    binding.recView.adapter = adapter
+                    Log.i("Item List : ", itemList.toString())
                 }
-            }
+
+                override fun onError(error: String) {
+                    refreshLayout.isRefreshing = false
+                    Log.e("Response Error: ", error)
+                }
+
+            })
+        } catch(exp: Exception) {
+            Log.e("Error: ", exp.toString())
+            refreshLayout.isRefreshing = false
+        }
     }
+
 }

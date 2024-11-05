@@ -54,8 +54,12 @@
     <string name="animal_treatment">Animal Treatment</string>
     <string name="profile">Profile</string>
     <string name="share">Share with friends</string>
-    <string name="delete">Delete Account</string>
+    <string name="delete_account">Delete Account</string>
     <string name="logout">Logout</string>
+    <string name="enter_mobile_no">Enter Mobile Number</string>
+    <string name="enter_here">Enter here..</string>
+
+    <string name="delete">Delete</string>
 
     <string name="no_animal">कोई पशु नहीं है|</string>
     <string name="see_your_animal">अपने पशु देखे</string>
@@ -72,7 +76,7 @@
     <string name="within_price">Within what price? *</string>
     <string name="mandatory_location">Location information is essential to see nearby animals</string>
     <string name="location_permission_title">See animals nearby! Allow your location to be seen</string>
-    <string name="give_location">Give location of Animal</string>
+    <string name="give_location">Allow Permission</string>
     <string name="name">Name</string>
     <string name="address">Address</string>
     <string name="whatsapp_no">WhatsApp No.</string>
@@ -88,8 +92,19 @@
     <string name="write_your_post">Write your post</string>
     <string name="new_post">New Post</string>
     <string name="select_image_jpg_png">Select Image (jpg, png)</string>
+    <string name="year_experience">years experience</string>
+    <string name="proceed">Continue</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="otp_sent_to">OTP sent to </string>
+    <string name="change_no">Change Number</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="see_wallet">See Wallet</string>
 
-
+    <string-array name="choose_lang">
+        <item>Hindi</item>
+        <item>English</item>
+    </string-array>
 
     <string-array name="lactation_option">
         <item>No lactation (0)</item>
@@ -144,7 +159,7 @@
     </string-array>
 
     <string name="term_and_condition">खाता बनाकर आप हमारी <u> सेवा की शर्तों (Terms of Service)</u> और <u>गोपनीयता नीति (Privacy Policy)</u> से सहमत होते हैं।</string>
-    <string name="mobile_invalid_msg">जिस नंबर से कॉल करते हैं डाले 👆</string>
+    <string name="mobile_invalid_msg">Invalid Number 👆</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -189,6 +204,5 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="change_number"><u>Change Number</u></string>
-    <string name="resend_otp"><u>Resend Otp</u></string>
+    <string name="language_title">Language</string>
 </resources>

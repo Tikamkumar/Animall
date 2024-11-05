@@ -1,96 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/_5sdp"
-        app:cardElevation="@dimen/_5sdp"
-        app:cardUseCompatPadding="true">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:paddingStart="@dimen/_10sdp"
+             android:paddingEnd="@dimen/_10sdp"
+             android:paddingBottom="@dimen/_10sdp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/_10sdp">
+             <ImageView
+                 android:id="@+id/negotiable"
+                 android:layout_width="@dimen/_40sdp"
+                 android:layout_height="@dimen/_20sdp"
+                 android:scaleType="centerCrop"
+                 android:layout_marginVertical="@dimen/_3sdp"
+                 android:src="@drawable/negotiable"/>
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12L Milk capacity| kundi Cross | Third calving | 9L Current Milk | 69,000"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+             <TextView
+                 android:id="@+id/title"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="12L Milk capacity| kundi Cross | Third calving | 9L Current Milk | 69,000"
+                 android:textColor="@color/black"
+                 android:maxLines="3"
+                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_5sdp"
-                android:text="1 hour ago | Beech ka Ukharra"
-                android:textSize="11sp"
-                />
+             <TextView
+                 android:id="@+id/time"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginVertical="@dimen/_5sdp"
+                 android:text="1 hour ago | Beech ka Ukharra"
+                 android:textSize="11sp"
+                 />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"/>
+             <androidx.viewpager.widget.ViewPager
+                 android:id="@+id/view_pager"
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/_200sdp"/>
 
-            <!--<ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cow"
-                android:scaleType="centerCrop"/>-->
+             <!--<ImageView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/cow"
+                 android:scaleType="centerCrop"/>-->
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/_8sdp" />
+             <LinearLayout
+                 android:id="@+id/all_user_lay"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:visibility="gone"
+                 tools:visibility="visible"
+                 android:gravity="center_vertical"
+                 android:padding="@dimen/_8sdp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="@dimen/_8sdp">
+                 <com.google.android.material.imageview.ShapeableImageView
+                     android:id="@+id/userPic"
+                     android:layout_width="@dimen/_30sdp"
+                     android:layout_height="@dimen/_30sdp"
+                     android:src="@drawable/ic_profile"
+                     app:shapeAppearanceOverlay="@style/CircularShape" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/ic_me"
-                    app:shapeAppearanceOverlay="@style/CircularShape" />
+                 <TextView
+                     android:id="@+id/name"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="Ram Gopal Ji"
+                     android:textStyle="bold"
+                     android:layout_marginStart="@dimen/_5sdp"
+                     android:textColor="@color/black"
+                     android:textSize="@dimen/_12ssp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Ram Gopal Ji"
-                    android:textStyle="bold"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+                 <ImageView
+                     android:id="@+id/ic_phone"
+                     android:layout_width="@dimen/_30sdp"
+                     android:layout_height="@dimen/_30sdp"
+                     android:layout_marginStart="@dimen/_5sdp"
+                     android:src="@drawable/ic_call" />
 
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:src="@drawable/ic_call" />
+                 <ImageView
+                     android:id="@+id/ic_whatsapp"
+                     android:layout_width="@dimen/_30sdp"
+                     android:layout_height="@dimen/_30sdp"
+                     android:layout_marginStart="@dimen/_5sdp"
+                     android:src="@drawable/ic_whatsapp" />
 
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:src="@drawable/ic_whatsapp" />
+             </LinearLayout>
 
-            </LinearLayout>
+             <Button
+                 android:id="@+id/delete_btn"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/delete"
+                 android:visibility="gone"
+                 android:layout_marginTop="@dimen/_5sdp"
+                 tools:visibility="visible"
+                 android:layout_gravity="end"
+                 android:backgroundTint="@color/navy"/>
 
-        </LinearLayout>
+         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

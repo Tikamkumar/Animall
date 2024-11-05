@@ -1,12 +1,11 @@
 package com.online.animall
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
-import android.os.Build
-import android.preference.PreferenceManager
+import android.location.Address
+import android.location.Geocoder
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
-import androidx.core.app.ActivityCompat.recreate
 import java.util.Locale
 
 
@@ -39,6 +38,30 @@ object LocaleHelper {
     fun getLocaleCode(activity: Activity): String {
         val sharedPreferences = activity.getSharedPreferences("app_prefs", MODE_PRIVATE)
         return sharedPreferences.getString("language", "hi")!!
+    }
+
+    fun getAddress(context: Context, latitude: Double, longitude: Double): String {
+        val addresses: List<Address>
+        val geocoder = Geocoder(context, Locale.getDefault())
+        addresses = geocoder.getFromLocation(
+            latitude,
+            longitude,
+            1
+        ) as List<Address>
+        val address: String =
+            addresses!![0].getAddressLine(0)
+       /* val city: String = addresses!![0].locality
+        val state: String = addresses!![0].adminArea
+        val country: String = addresses!![0].countryName
+        val postalCode: String = addresses!![0].postalCode
+        val knownName: String = addresses!![0].featureName*/
+        Log.i("address", address)
+        /*Log.i("city", city)
+        Log.i("State", state)
+        Log.i("Country", country)
+        Log.i("pinCode", postalCode)
+        Log.i("KnownName", knownName)*/
+        return address
     }
     /*private const val SELECTED_LANGUAGE = "Locale.Helper.Selected.Language"
 

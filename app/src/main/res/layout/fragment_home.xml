@@ -14,8 +14,8 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/customer_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/navy">
+            android:background="@color/white"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Animall.in"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_16ssp"
                         android:textStyle="bold"/>
 
@@ -40,7 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="गाय भैंस वाला ऐप"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_14ssp"/>
 
                 </LinearLayout>
@@ -60,14 +60,14 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:scrollbars="none"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -84,12 +84,12 @@
                     android:padding="@dimen/_5sdp"
                     android:orientation="vertical">
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="आगरा के 96 नए जानवर - 1 अक्टूबर"
                         android:textStyle="bold"
-                        android:textSize="@dimen/_13ssp"/>
+                        android:textSize="@dimen/_13ssp"/>-->
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
@@ -97,140 +97,58 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/rec_view"/>
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_120sdp"
-                                app:cardUseCompatPadding="true"
+                                android:layout_width="@dimen/_110sdp"
+                                android:id="@+id/view_all"
                                 app:cardCornerRadius="@dimen/_5sdp"
-                                app:cardElevation="@dimen/_5sdp"
+                                app:cardBackgroundColor="#F6F3F3"
+                                app:cardUseCompatPadding="true"
+                                android:layout_marginHorizontal="@dimen/_5sdp"
                                 android:layout_height="wrap_content">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/_3sdp"
+                                    android:padding="@dimen/_5sdp"
                                     android:orientation="vertical">
 
-                                    <ImageView
+                                    <com.google.android.material.imageview.ShapeableImageView
                                         android:layout_width="match_parent"
-                                        android:layout_height="@dimen/_110sdp"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/cow_1"/>
+                                        android:layout_height="@dimen/_100sdp"
+                                        android:padding="@dimen/_30sdp"
+                                        app:strokeColor="@color/black"
+                                        app:shapeAppearanceOverlay="@style/circleImageView"
+                                        app:srcCompat="@drawable/ic_next" />
 
                                     <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="12 लीटर क्षमता"
-                                        android:textAlignment="center"
-                                        android:layout_marginTop="@dimen/_3sdp"
-                                        android:textStyle="bold"/>
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:maxLines="1"
+                                        android:text="View All"
+                                        android:textSize="@dimen/_10ssp"
+                                        android:textColor="@color/black"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_marginTop="@dimen/_2sdp"/>
 
                                 </LinearLayout>
 
-
-
                             </androidx.cardview.widget.CardView>
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_120sdp"
-                                app:cardUseCompatPadding="true"
-                                app:cardCornerRadius="@dimen/_5sdp"
-                                app:cardElevation="@dimen/_5sdp"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_3sdp"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="@dimen/_110sdp"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/buffalo"/>
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="12 लीटर क्षमता"
-                                        android:textAlignment="center"
-                                        android:layout_marginTop="@dimen/_3sdp"
-                                        android:textStyle="bold"/>
-
-                                </LinearLayout>
 
 
-
-                            </androidx.cardview.widget.CardView>
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_120sdp"
-                                app:cardUseCompatPadding="true"
-                                app:cardCornerRadius="@dimen/_5sdp"
-                                app:cardElevation="@dimen/_5sdp"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_3sdp"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="@dimen/_110sdp"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/cow"/>
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="12 लीटर क्षमता"
-                                        android:textAlignment="center"
-                                        android:layout_marginTop="@dimen/_3sdp"
-                                        android:textStyle="bold"/>
-
-                                </LinearLayout>
-
-
-
-                            </androidx.cardview.widget.CardView>
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_120sdp"
-                                app:cardUseCompatPadding="true"
-                                app:cardCornerRadius="@dimen/_5sdp"
-                                app:cardElevation="@dimen/_5sdp"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_3sdp"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="@dimen/_110sdp"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/cow_bell"/>
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="12 लीटर क्षमता"
-                                        android:textAlignment="center"
-                                        android:layout_marginTop="@dimen/_3sdp"
-                                        android:textStyle="bold"/>
-
-                                </LinearLayout>
-
-
-
-                            </androidx.cardview.widget.CardView>
                         </LinearLayout>
 
                     </HorizontalScrollView>
+
+
 
                     <Button
                         android:id="@+id/buy_animal_btn"
@@ -257,12 +175,12 @@
                     android:padding="@dimen/_5sdp"
                     android:orientation="vertical">
 
-                    <TextView
+                   <!-- <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="पशु बेचे -383 क्रेता उपस्थित"
                         android:textStyle="bold"
-                        android:textSize="@dimen/_13ssp"/>
+                        android:textSize="@dimen/_13ssp"/>-->
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -402,7 +320,7 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 </LinearLayout>

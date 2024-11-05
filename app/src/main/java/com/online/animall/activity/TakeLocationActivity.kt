@@ -12,17 +12,22 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.online.animall.LocationHelper
+import com.online.animall.R
 import com.online.animall.data.local.UserPreferences
 import com.online.animall.data.model.CreateUserResponse
 import com.online.animall.data.remote.RetrofitClient
@@ -45,10 +50,16 @@ class TakeLocationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
+        enableEdgeToEdge()
 
         binding = ActivityTakeLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -59,27 +70,6 @@ class TakeLocationActivity : AppCompatActivity() {
         }
         binding.getLocation.setOnClickListener {
             getLastLocation()
-            /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // Request permission
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
-            } else {
-                // Permission is granted, retrieve the location
-                // getLocation()
-            }*/
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-//                    // Show an explanation to the user
-//                    Toast.makeText(this, "Location permission is needed to show your location", Toast.LENGTH_SHORT).show()
-//                    // Request permission
-//                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
-//                } else {
-//                    // Permission denied with "Don't ask again"
-//                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
-//                    Toast.makeText(this, "Location permission is denied. Please enable it in app settings.", Toast.LENGTH_LONG).show()
-//                    // Optionally, you could direct the user to app settings
-//                    // openAppSettings()
-//                }
-//            }
         }
     }
 
@@ -90,13 +80,15 @@ class TakeLocationActivity : AppCompatActivity() {
                 mFusedLocationClient?.lastLocation
                     ?.addOnCompleteListener { task ->
                         val location: Location? = task.result
+                        Toast.makeText(this, "Location : ${location?.latitude}", Toast.LENGTH_SHORT).show()
                         if (location == null) {
                             requestNewLocationData()
                         } else {
+                            Toast.makeText(this, "Latitude : ${location?.latitude}", Toast.LENGTH_SHORT).show()
                             Log.i("Longitude : ", "${location.longitude}")
                             Log.i("Latitude : ", "${location.latitude}")
-                            try {
-                                /*userViewModel.locationResponse.observe(this) { response ->
+                         /*   try {
+                                *//*userViewModel.locationResponse.observe(this) { response ->
                                     if(response != null) {
                                         val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
@@ -104,7 +96,7 @@ class TakeLocationActivity : AppCompatActivity() {
                                     } else {
                                         SnackbarUtil.error(binding.main)
                                     }
-                                }*/
+                                }*//*
                                 userViewModel.sendLocation(location.longitude.toString(), location.latitude.toString(), userPreferences.getToken()!!, object: UserViewModel.LocationCallback {
                                     override fun onSuccess(response: CreateUserResponse) {
                                         val intent = Intent(this@TakeLocationActivity, MainActivity::class.java)
@@ -118,7 +110,7 @@ class TakeLocationActivity : AppCompatActivity() {
                                 })
                             } catch(e: Exception) {
                                 SnackbarUtil.error(binding.main)
-                            }
+                            }*/
 /*
                            CoroutineScope(Dispatchers.IO).launch {
                                val response = RetrofitClient.api.saveLocation("Bearer " + userPreferences.getToken()!!, com.online.animall.data.model.LocationRequest("${location.latitude}", "${location.latitude}"))

@@ -9,7 +9,8 @@
 
     <include
         android:id="@+id/no_internet"
-        layout="@layout/no_internet_layout"/>
+        layout="@layout/no_internet_layout"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/internet_layout"
@@ -45,7 +46,5 @@
             app:menu="@menu/bottom_nav_menu" />
 
     </LinearLayout>
-
-
 
 </LinearLayout>

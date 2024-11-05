@@ -42,13 +42,14 @@ class VerifyMobile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
+
         binding = ActivityVerifyMobileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         loadingDialog = LoadingDialog(this)
 
         mobile = intent.getStringExtra("mobile")
-        binding.otpNumber.text = "Otp sent to $mobile" ?: "null"
+        binding.otpNumber.text = "${getString(R.string.otp_sent_to)} $mobile" ?: "null"
 
         userPreference = UserPreferences(this)
 

@@ -6,7 +6,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private const val BASE_URL = ConstUtil.BASE_URL
-    // Replace with your base URL
 
     val api: ApiService by lazy {
         Retrofit.Builder()

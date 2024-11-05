@@ -1,40 +1,33 @@
 package com.online.animall.home
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.online.animall.R
 import com.online.animall.activity.ProfileActivity
+import com.online.animall.adapter.HomeBuyAnimalAdapter
+import com.online.animall.data.local.UserPreferences
 import com.online.animall.databinding.FragmentHomeBinding
+import com.online.animall.presentation.viewmodel.AnimalViewModel
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var animalImgList: MutableList<String>
+    private lateinit var milkCapacityList: MutableList<String>
+    private val viewModel: AnimalViewModel by viewModels()
+    private lateinit var userPrefs: UserPreferences
+    private lateinit var adapter: HomeBuyAnimalAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,43 +38,73 @@ class HomeFragment : Fragment() {
         binding.profileBtn.setOnClickListener {
             startActivity(Intent(requireContext(), ProfileActivity::class.java))
         }
-        val mainActivity = (activity as MainActivity)
+        userPrefs = UserPreferences(requireContext())
+
+        val activity = (activity as MainActivity)
+        fetchData(activity.refreshLayout)
+
+        activity.refreshLayout.setOnRefreshListener {
+            fetchData(activity.refreshLayout)
+        }
         binding.buyAnimalBtn.setOnClickListener {
-            mainActivity.loadFragment(BuyAnimalFragment())
-            mainActivity.bottomNav.selectedItemId = R.id.buy_animal
+            activity.loadFragment(BuyAnimalFragment())
+            activity.bottomNav.selectedItemId = R.id.buy_animal
+        }
+        binding.viewAll.setOnClickListener {
+            activity.loadFragment(BuyAnimalFragment())
+            activity.bottomNav.selectedItemId = R.id.buy_animal
         }
         binding.sellAnimalBtn.setOnClickListener {
-            mainActivity.loadFragment(SellAnimalFragment())
-            mainActivity.bottomNav.selectedItemId = R.id.sell_animal
+            activity.loadFragment(SellAnimalFragment())
+            activity.bottomNav.selectedItemId = R.id.sell_animal
         }
         binding.animalDoctorBtn.setOnClickListener {
-            mainActivity.loadFragment(AnimalDoctorFragment())
-            mainActivity.bottomNav.selectedItemId = R.id.animal_doctor
+            activity.loadFragment(AnimalDoctorFragment())
+            activity.bottomNav.selectedItemId = R.id.animal_doctor
         }
         binding.animalCommBtn.setOnClickListener {
-            mainActivity.loadFragment(AnimalCommFragment())
-            mainActivity.bottomNav.selectedItemId = R.id.animal_communicate
+            activity.loadFragment(AnimalCommFragment())
+            activity.bottomNav.selectedItemId = R.id.animal_communicate
         }
         return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    private fun fetchData(refreshLayout: SwipeRefreshLayout) {
+        milkCapacityList = mutableListOf()
+        animalImgList = mutableListOf()
+        try {
+            viewModel.getYourAnimal(userPrefs.getToken()!!, object: AnimalViewModel.ResponseCallback {
+                override fun onSuccess(response: Response<ResponseBody>) {
+                    refreshLayout.isRefreshing = false
+                    val data = JSONObject(response.body()!!.string())
+                    val list = data.getJSONArray("data")
+                    for(i in 0 until list.length()) {
+                        if(i == 3) break
+                        val item = list.getJSONObject(i)
+                        val files = item.getJSONArray("files")
+                        for(j in 0 until files.length()) {
+                            animalImgList.add(files.getJSONObject(j)["path"].toString())
+                        }
+                       if(item.has("milkCapacity"))
+                        milkCapacityList.add(item["milkCapacity"].toString())
+                    }
+                    Log.i("Animal Response : ", animalImgList.toString())
+                    adapter = HomeBuyAnimalAdapter(animalImgList, milkCapacityList, requireContext())
+                    binding.recView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    binding.recView.adapter = adapter
                 }
-            }
+
+                override fun onError(error: String) {
+                    refreshLayout.isRefreshing = false
+                    Log.e("Response Error: ", error)
+                }
+
+            })
+        } catch(exp: Exception) {
+            Log.e("Error: ", exp.toString())
+            refreshLayout.isRefreshing = false
+        }
     }
+    
 }

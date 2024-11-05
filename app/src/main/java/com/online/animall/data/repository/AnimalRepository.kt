@@ -33,10 +33,10 @@ class AnimalRepository {
 
     suspend fun getAnimalBreed(
         token: String,
-        search: String?,
+        /*search: String?,*/
         animalId: String
     ): Response<ResponseBody> {
-        return RetrofitClient.api.getAnimalBreed(token, search, animalId)
+        return RetrofitClient.api.getAnimalBreed(token, /*search,*/ animalId)
     }
 
     suspend fun uploadSellAnimal(
@@ -66,5 +66,13 @@ class AnimalRepository {
 
     suspend fun getYourAnimals(token: String): Response<ResponseBody> {
         return RetrofitClient.api.getYourAnimal(token)
+    }
+
+    suspend fun getYourPrimeAnimals(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getYourPrimeAnimal(token)
+    }
+
+    suspend fun getAllAnimal(token: String): Response<ResponseBody> {
+        return RetrofitClient.api.getAllAnimal(token)
     }
 }

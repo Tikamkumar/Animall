@@ -1,13 +1,14 @@
 package com.online.animall.data.repository
 
-import android.util.Log
-import android.widget.Toast
 import com.online.animall.data.model.CreateUserRequest
 import com.online.animall.data.model.CreateUserResponse
 import com.online.animall.data.model.LocationRequest
 import com.online.animall.data.model.OtpRequest
 import com.online.animall.data.model.OtpResponse
+import com.online.animall.data.model.UpdateProfile
 import com.online.animall.data.remote.RetrofitClient
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 class UserRepository {
 
@@ -40,6 +41,42 @@ class UserRepository {
         val request = mapOf("name" to name)
         val response = RetrofitClient.api.regName(token, request)
         return response.isSuccessful
+    }
+
+    suspend fun getUserProfile(token: String): retrofit2.Response<ResponseBody> {
+        return RetrofitClient.api.getUserProfile(token)
+    }
+
+    suspend fun getUserWorklist(token: String): retrofit2.Response<ResponseBody> {
+        return RetrofitClient.api.getUserWorklist(token)
+    }
+
+    suspend fun getReasonOfUsingApp(token: String): retrofit2.Response<ResponseBody> {
+        return RetrofitClient.api.getReasonsOfUsingApp(token)
+    }
+
+    suspend fun getEducationLevels(token: String): retrofit2.Response<ResponseBody> {
+        return RetrofitClient.api.getEducationLevels(token)
+    }
+
+    suspend fun getAnimalHusbandry(token: String): retrofit2.Response<ResponseBody> {
+        return RetrofitClient.api.getAnimalHusbandry(token)
+    }
+
+    suspend fun updateProfile(token: String, profileModel: UpdateProfile): Response<ResponseBody> {
+        return RetrofitClient.api.updateProfile(
+            token,
+            profileModel.images,
+            profileModel.name,
+            profileModel.address,
+            profileModel.whatsNumber,
+            profileModel.birthday,
+            profileModel.noOfAnimals,
+            profileModel.workId,
+            profileModel.animalHusbandryId,
+            profileModel.reasonId,
+            profileModel.educationLevelId
+            )
     }
 
     /*suspend fun verifyMobile(mobile: String, otp: String): OtpResponse? {

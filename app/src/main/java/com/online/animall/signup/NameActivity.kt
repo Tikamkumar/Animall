@@ -38,8 +38,6 @@ class NameActivity : AppCompatActivity() {
 
         userPreferences = UserPreferences(this)
 
-
-
         binding.main.setOnClickListener {
           startActivity(Intent(this, TakeLocationActivity::class.java))
         }
@@ -61,13 +59,11 @@ class NameActivity : AppCompatActivity() {
             loader.show()
             binding.validationMsg.visibility = View.GONE
             try {
-                userViewModel.regName(binding.name.text.toString(), userPreferences.getToken()!!,object: UserViewModel.ResponseCallback{
-
+                userViewModel.regName(binding.name.text.toString(), userPreferences.getToken()!!,object: UserViewModel.BooleanCallback{
                     override fun onSuccess(response: Boolean) {
                         loader.hide()
                         startActivity(Intent(this@NameActivity, MainActivity::class.java))
                     }
-
                     override fun onError(error: String) {
                         loader.hide()
                         SnackbarUtil.error(binding.main)

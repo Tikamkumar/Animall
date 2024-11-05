@@ -19,6 +19,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -56,7 +57,7 @@ interface ApiService {
     @GET("animal-breed")
     suspend fun getAnimalBreed(
       @Header("Authorization") token: String,
-      @Query("search") search: String?,
+//      @Query("search") search: String?,
       @Query("animalId") animalId: String,
     ): Response<ResponseBody>
 
@@ -72,7 +73,6 @@ interface ApiService {
     @GET("get-animal-pregnant")
     suspend fun getAnimalPregnant(@Header("Authorization") token: String): Response<ResponseBody>
 
-
     @Multipart
     @POST("sell-animal")
     suspend fun uploadSellAnimal(
@@ -80,7 +80,7 @@ interface ApiService {
        @Part file: List<MultipartBody.Part>,
        @Part("animalId") animalId: RequestBody,
        @Part("breedId") breedId: RequestBody,
-       @Part("lactation") lactation: RequestBody,
+       @Part("lactationId") lactation: RequestBody,
        @Part("currentMilk") currentMilk: RequestBody,
        @Part("milkCapacity") milkCapacity: RequestBody,
        @Part("price") price: RequestBody,
@@ -88,10 +88,10 @@ interface ApiService {
        @Part("file_type_1") file_type_1: RequestBody,
        @Part("isNegotiable") isNegotiable: RequestBody,
        @Part("isPrime") isPrime: RequestBody,
-       @Part("animalBaby") animalBaby: RequestBody,
+       @Part("animalBabyId") animalBaby: RequestBody,
        @Part("info") info: RequestBody,
-       @Part("pregnent") pregnent: RequestBody,
-       @Part("calfGender") calfGender: RequestBody,
+       @Part("pregnentId") pregnent: RequestBody,
+       @Part("calfGenderId") calfGender: RequestBody,
     ): Response<ResponseBody>
 
     @Multipart
@@ -105,6 +105,12 @@ interface ApiService {
 
     @GET("your-animal")
     suspend fun getYourAnimal(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("user-prime-animal")
+    suspend fun getYourPrimeAnimal(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("all-animals")
+    suspend fun getAllAnimal(@Header("Authorization") token: String): Response<ResponseBody>
 
     @GET("all-posts")
     suspend fun getAllPost(@Header("Authorization") token: String): Response<ResponseBody>
@@ -128,4 +134,32 @@ interface ApiService {
 
     @GET("exprienced-doctors")
     suspend fun getExperienceDoctor(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("user-work")
+    suspend fun getUserWorklist(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("use-animal-app")
+    suspend fun getReasonsOfUsingApp(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("user-education-level")
+    suspend fun getEducationLevels(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @GET("animal-husbandry")
+    suspend fun getAnimalHusbandry(@Header("Authorization") token: String): Response<ResponseBody>
+
+    @Multipart
+    @PUT("update-profile")
+   suspend fun updateProfile(
+        @Header("Authorization") token: String,
+        @Part images: MultipartBody.Part,
+        @Part("name") name: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("whatsUpNumber") whatsNumber: RequestBody,
+        @Part("birthday") birthday: RequestBody,
+        @Part("numberOfAnimals") noOfAnimals: RequestBody,
+        @Part("workId") workId: RequestBody,
+        @Part("animalHusbandryId") animalHusbandryId: RequestBody,
+        @Part("useAnimalAppId") animalAppId: RequestBody,
+        @Part("educationLevelId") educationLevelId: RequestBody,
+        ): Response<ResponseBody>
 }

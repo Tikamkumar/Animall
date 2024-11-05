@@ -39,10 +39,17 @@ class EnterMobileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         binding = ActivityEnterMobileBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         loadingDialog = LoadingDialog(this)
 
         binding.proceedBtn.setOnClickListener {
@@ -56,7 +63,7 @@ class EnterMobileActivity : AppCompatActivity() {
     }
 
     private fun signUp() {
-        CoroutineScope(Dispatchers.IO).launch {
+       /* CoroutineScope(Dispatchers.IO).launch {
 
             val response = RetrofitClient.api.getLactation(UserPreferences(applicationContext).getToken()!!)
             if (response.isSuccessful) {
@@ -65,16 +72,16 @@ class EnterMobileActivity : AppCompatActivity() {
                 if (userResponse != null) {
                     // Process userResponse
                     Log.d("API Success", "Response: $userResponse")
-                    /*val intent = Intent(this@EnterMobileActivity, VerifyMobile::class.java)
+                    *//*val intent = Intent(this@EnterMobileActivity, VerifyMobile::class.java)
                     intent.putExtra("mobile", mobileNumber)
-                    startActivity(intent)*/
+                    startActivity(intent)*//*
                 }
             } else {
                 // Handle the error response
                 val errorBody = response.errorBody()?.string()
                 Log.e("API Error", "Code: ${response.code()}, Body: $errorBody")
             }
-        }/*
+        }*/
         loadingDialog.show()
         val mobileNumber = binding.mobileNumber.text.toString()
         if(mobileNumber.isEmpty() || mobileNumber.length != 10) {
@@ -99,7 +106,7 @@ class EnterMobileActivity : AppCompatActivity() {
                 SnackbarUtil.error(binding.main)
             }
         }
-    */}
+    }
 
     private var textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

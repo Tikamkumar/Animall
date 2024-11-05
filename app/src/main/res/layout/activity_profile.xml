@@ -174,10 +174,10 @@
                         <Button
                             android:id="@+id/wallet_btn"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginVertical="@dimen/_8sdp"
-                            android:background="@drawable/custom_btn_bg"
-                            android:text="See Wallet"
+                            android:backgroundTint="@color/navy"
+                            android:text="@string/see_wallet"
                             android:textSize="@dimen/_15ssp" />
 
                     </LinearLayout>
@@ -234,9 +234,9 @@
                         <Button
                             android:id="@+id/your_animal_btn"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginVertical="@dimen/_8sdp"
-                            android:background="@drawable/custom_btn_bg"
+                            android:backgroundTint="@color/navy"
                             android:text="@string/see_your_animal"
                             android:textSize="@dimen/_15ssp" />
 
@@ -290,13 +290,12 @@
 
                         </RelativeLayout>
 
-
                         <Button
                             android:id="@+id/choice_animal_btn"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginVertical="@dimen/_8sdp"
-                            android:background="@drawable/custom_btn_bg"
+                            android:backgroundTint="@color/navy"
                             android:text="पसंद अनुसार पशु देखे"
                             android:textSize="@dimen/_15ssp" />
 
@@ -322,7 +321,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
 
                             <TextView
                                 android:layout_width="0dp"
@@ -375,7 +373,7 @@
        android:layout_alignParentBottom="true"
        android:layout_alignParentEnd="true"
        android:layout_margin="@dimen/_10sdp"
-       android:backgroundTint="@color/primary"
+       android:backgroundTint="@color/navy"
        android:src="@drawable/ic_support"
        app:tint="@color/white"/>
 

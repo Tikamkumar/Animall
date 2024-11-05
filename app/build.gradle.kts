@@ -35,12 +35,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    /*androidResources {
-        generateLocaleConfig = true
-    }*/
 }
-
-
 
 dependencies {
     implementation(libs.androidx.core.ktx)

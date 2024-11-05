@@ -120,7 +120,7 @@ class AnimalViewModel: ViewModel() {
     ) {
         viewModelScope.launch {
             try {
-                val response = repository.getAnimalBreed(token, search, animalId)
+                val response = repository.getAnimalBreed(token,/* search,*/ animalId)
                 if (response.isSuccessful)
                     callback.onSuccess(response)
                 else
@@ -157,6 +157,34 @@ class AnimalViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 val response = repository.getYourAnimals(token)
+                if (response.isSuccessful)
+                    callback.onSuccess(response)
+                else
+                    callback.onError(response.errorBody().toString())
+            } catch (exp: Exception) {
+                callback.onError(exp.message.toString())
+            }
+        }
+    }
+
+    fun getYourPrimeAnimal(token: String, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getYourPrimeAnimals(token)
+                if (response.isSuccessful)
+                    callback.onSuccess(response)
+                else
+                    callback.onError(response.errorBody().toString())
+            } catch (exp: Exception) {
+                callback.onError(exp.message.toString())
+            }
+        }
+    }
+
+    fun getAllAnimal(token: String, callback: ResponseCallback) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getAllAnimal(token)
                 if (response.isSuccessful)
                     callback.onSuccess(response)
                 else
